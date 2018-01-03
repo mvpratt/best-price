@@ -3,9 +3,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { QuoteGroup } from './components/QuoteGroup';
 import { PriceHistory } from './components/PriceHistory';
-import './skeleton.css';
-import './normalize.css';
-import './custom.css';
+import './css/skeleton.css';
+import './css/normalize.css';
+import './css/custom.css';
 
 class App extends React.Component {
 

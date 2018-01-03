@@ -1,7 +1,7 @@
 {
-  "name": "rateclient",
+  "name": "best-price",
   "version": "1.0.0",
-  "description": "Price Comparison Tool",
+  "description": "Find best crypto-asset prices",
   "main": "index.js",
   "scripts": {
     "start": "npm run build",

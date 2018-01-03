@@ -12,9 +12,6 @@ Major tasks:
   Make a few slides to show the overall design - block diagram
 
 Environment:
-  push to private github
-  change project name
-  test clone and build
   script to start postgresql database
 
 Code quality:

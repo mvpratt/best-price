@@ -1,26 +1,22 @@
 
 /*
-
 ## Author
 Michael V Pratt  [ github.com/mvpratt ] [ Twitter: @mikevpratt ]
 
 TODO:
 
 Major tasks:
-  Bitcoin tasks
-  Eth contract tasks ??
+  Bitcoin addresses
+  Eth contract tie-in
   Make a few slides to show the overall design - block diagram
 
-Environment:
-  script to start postgresql database
-
 Code quality:
+  script to start postgresql database
   clear up server.js main section
   fix so dont have to pre-populate prices (shows incomplete sql knowledge)
   make a global app scope
   Handle all errors
   react props validation -- check all -- why lint error?
-  scrub css files
   Check for bad input -- rest api
 
 Frontend:
@@ -37,6 +33,7 @@ Misc:
   Logging with Morgan js module
 
 Defer:
+  scrub css files
   protect postgres user name -- env variable
   Use await?  ES6 features
   Change db name from sample_db

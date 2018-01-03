@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QuoteRow } from './QuoteRow';
 
+// todo - 
+
 export class QuoteGroup extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,10 @@ export class QuoteGroup extends React.Component {
       isLoading: true,
       intervalId: {},
       intervalRate: 1000,
+      btcQuotes: [],
+      worstPrice: 42,
+      bestPrice: 42,
+      priceDelta: 42,
     };
   }
 
@@ -20,29 +26,38 @@ export class QuoteGroup extends React.Component {
   }
 
   timer() {
-    this.getQuotes();
-  }
-
-  getQuotes() {
-    return fetch(`http://localhost:8080/quote/${this.props.coin}`)
-      .then(response => response.json())
-      .then((responseJson) => {
-        return this.setBestPrice(responseJson);
-      })
+    this.getQuotes(this.props.coin)
+      .then((data) => {
+        return this.setBestPrice(data);
+      })    
       .then((data) => {
         this.setState({ quotes: data });
       })    
+      .then(() => {
+        return this.getQuotes('BTC');
+      })
+      .then((data) => {
+        this.setState({ btcQuotes: data });
+      })      
   }
 
-  truncateQuotes(_quotes) {
-    for (var i = 1; i <= _quotes.length-1; i += 1) {
-        _quotes[i].quote = Math.trunc(_quotes[i].quote * 10000) / 10000;
-    }
-    return _quotes;    
+  getQuotes(coin) {
+    return fetch('http://localhost:8080/quote/' + coin)
+      .then(response => response.json())
+      .then((responseJson) => {
+        return responseJson;//this.setBestPrice(responseJson);
+      }) 
   }
+
+  //truncateQuotes(_quotes) {
+  //  for (var i = 1; i <= _quotes.length-1; i += 1) {
+  //      _quotes[i].quote = Math.trunc(_quotes[i].quote * 10000) / 10000;
+  //  }
+  //  return _quotes;    
+  //}
 
   btcFormatter(data) {
-    return Math.trunc(data * 10000) / 10000;
+    return Math.trunc(data * 1000000) / 1000000;
   }
 
   usdFormatter(data) {
@@ -52,6 +67,14 @@ export class QuoteGroup extends React.Component {
   setBestPrice(_quotes) {
     // intial conditions - first object in the array
     let bestPrice = _quotes[0].quote; 
+    let worstPrice = _quotes[0].quote;
+
+    // find worst price
+    for (var i = 1; i <= _quotes.length-1; i += 1) {
+      if (_quotes[i].quote > worstPrice) {
+        worstPrice = _quotes[i].quote;
+       }
+    }
 
     // find best price
     for (var i = 1; i <= _quotes.length-1; i += 1) {
@@ -68,13 +91,32 @@ export class QuoteGroup extends React.Component {
       else {
         _quotes[i].isBestPrice = false;
       }
-    }    
+    }
+
+    this.setState({ 
+      worstPrice: worstPrice,
+      bestPrice: bestPrice,
+      priceDelta: worstPrice - bestPrice,        
+    });
+
     return _quotes;
   }
 
   componentDidMount() {
     this.intervalId = setInterval(this.timer.bind(this), this.state.intervalRate);
-    this.getQuotes()
+    this.getQuotes(this.props.coin)
+      .then((data) => {
+        return this.setBestPrice(data);
+      })
+      .then((data) => {
+        this.setState({ quotes: data });
+      })       
+      .then(() => {
+        return this.getQuotes('BTC');
+      })
+      .then((data) => {
+        this.setState({ btcQuotes: data });
+      })          
       .then(() => {
         this.setState({ isLoading: false });
       })      
@@ -89,8 +131,8 @@ export class QuoteGroup extends React.Component {
               quote={this.state.quotes[i].quote} 
               highlight={this.state.quotes[i].isBestPrice} 
               amt={this.btcFormatter(this.props.amtBTC / this.state.quotes[i].quote)}
-              estimSavings={this.btcFormatter( this.props.amtBTC / this.state.quotes[i].quote * .0001 ) }
-              savingsUSD={'$' + this.usdFormatter( this.props.amtBTC / this.state.quotes[i].quote * .0001 * 15000 ) }
+              estimSavings={this.btcFormatter( this.props.amtBTC / this.state.quotes[i].quote * this.state.priceDelta ) }
+              savingsUSD={'$' + this.usdFormatter( this.props.amtBTC / this.state.quotes[i].quote * this.state.priceDelta * this.state.btcQuotes[i].quote ) }
            />;
   }
 

@@ -69,8 +69,7 @@ export class PriceHistory extends React.Component {
       );
     }
     return (
-      <div>
-      
+      <div>      
        <div>
         <label>Price Trends:</label>
         <select>          
@@ -81,7 +80,6 @@ export class PriceHistory extends React.Component {
          <option value="5">N/A</option>
         </select>
        </div>
-
        <div className="bg-area-chart">
         <div className="border-area-chart">
          <AreaChart

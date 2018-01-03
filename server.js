@@ -9,6 +9,7 @@ Major tasks:
   Bitcoin addresses
   Eth contract tie-in
   Make a few slides to show the overall design - block diagram
+  move data massaging from front end to backend
 
 Code quality:
   script to start postgresql database

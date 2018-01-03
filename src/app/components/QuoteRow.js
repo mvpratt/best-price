@@ -10,6 +10,7 @@ export class QuoteRow extends React.Component {
               <td>{this.props.quote}</td>
               <td>{this.props.amt}</td>
               <td>{this.props.estimSavings}</td>
+              <td>{this.props.savingsUSD}</td>
              </tr>
              );
           }
@@ -19,7 +20,8 @@ export class QuoteRow extends React.Component {
               <td>{this.props.source}</td>
               <td>{this.props.quote}</td>             
               <td>{this.props.amt}</td>
-              <td>{'N/A'}</td>            
+              <td>{'N/A'}</td>    
+              <td>{'N/A'}</td>                         
              </tr>
              );
           }

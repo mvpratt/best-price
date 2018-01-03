@@ -29,9 +29,9 @@ export class QuoteGroup extends React.Component {
       .then((responseJson) => {
         return this.setBestPrice(responseJson);
       })
-      .then((data) => {
-        return this.truncateQuotes(data);
-      })
+      //.then((data) => {
+      //  return this.truncateQuotes(data);
+      //})
       .then((data) => {
         this.setState({ quotes: data });
       })    
@@ -93,6 +93,7 @@ export class QuoteGroup extends React.Component {
               highlight={this.state.quotes[i].isBestPrice} 
               amt={this.btcFormatter(this.props.amtBTC / this.state.quotes[i].quote)}
               estimSavings={this.btcFormatter( this.props.amtBTC / this.state.quotes[i].quote * .0001 ) }
+              savingsUSD={'$' + this.usdFormatter( this.props.amtBTC / this.state.quotes[i].quote * .0001 * 15000 ) }
            />;
   }
 
@@ -106,15 +107,15 @@ export class QuoteGroup extends React.Component {
     }
     return (
       <div>
-        <br></br>
         <h6>Latest Quotes:</h6>
         <table>
           <thead>
             <tr>
-              <th>Exchange</th>
+              <th><strong>Exchange</strong></th>
               <th>Price (BTC)</th>
-              <th>QTY Purchased (CoinX)</th>
+              <th>QTY To Purchase ({this.props.coin})</th>
               <th>Savings (BTC)</th>
+              <th>Savings (USD)</th>
             </tr>
           </thead>
           <tbody>

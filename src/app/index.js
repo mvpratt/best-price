@@ -37,6 +37,24 @@ class App extends React.Component {
       });
   }  
 
+  renderCoinGroup(coinName, coinTicker, color) {
+    return (
+           <div>
+              <h3>{coinName}</h3>
+              <QuoteGroup 
+                coin={coinTicker} 
+                amtBTC={this.state.inputAmtBTC}
+              />
+              <PriceHistory 
+                coin={coinTicker} 
+                color={color} 
+                priceHistoryBTCUSD={this.state.priceHistoryBTCUSD} 
+              />
+            <br></br>
+           </div>
+    );
+  }
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -50,51 +68,28 @@ class App extends React.Component {
         <header id="header" className="twelve columns">
           <div className="container">
             <div className="row">
-              <h2>Price Comparison Tool</h2>
+              <h2>Find the Best Cryptoasset Prices</h2>
             </div>
           </div>
         </header> 
-
         <div className="container">
+        <div className="row">
          <div className="ten columns">
-          <label>Amount (BTC)</label>
-
+         
+          <label>Amount to Exchange (BTC)</label>
           <input
             onChange={this.handleChange}
             value={this.state.text}
             label="i_amount"
             type="number" 
           />
-          <label>Select Timeframe</label>
-        <select>          
-          <option value="1">1 day</option>
-          <option value="2">7 days</option>
-          <option value="3">30 days</option>
-          <option value="4">90 days</option>
-        </select>
 
-          <div className="row">
-            <h3>Ethereum</h3>
-            <PriceHistory coin="ETH" color="#8884d8" priceHistoryBTCUSD={this.state.priceHistoryBTCUSD} />
-          </div>
-          <div className="row">
-            <QuoteGroup coin="ETH" amtBTC={this.state.inputAmtBTC}/>
-          </div>
-          <div className="row">
-            <h3>Litecoin </h3>
-            <PriceHistory coin="LTC" color="#82ca9d" priceHistoryBTCUSD={this.state.priceHistoryBTCUSD}/>
-          </div>
-          <div className="row">
-            <QuoteGroup coin="LTC" amtBTC={this.state.inputAmtBTC}/>
-          </div>
-          <div className="row">
-            <h3>Dash </h3>
-            <PriceHistory coin="DASH" color="#f4b942" priceHistoryBTCUSD={this.state.priceHistoryBTCUSD}/>
-          </div>
-          <div className="row">
-            <QuoteGroup coin="DASH" amtBTC={this.state.inputAmtBTC}/>
-          </div>
-         </div> 
+          <br></br>
+          {this.renderCoinGroup('Ethereum', 'ETH', '#8884d8')}
+          {this.renderCoinGroup('Litecoin', 'LTC', '#82ca9d')}          
+          {this.renderCoinGroup('Dash', 'DASH', '#f4b942')}
+         </div>
+        </div>
         </div>
       </div>
     );

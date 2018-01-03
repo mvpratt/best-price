@@ -69,9 +69,22 @@ export class PriceHistory extends React.Component {
       );
     }
     return (
-      <div className="bg-area-chart">
-      <div className="border-area-chart">
-        <AreaChart
+      <div>
+      
+       <div>
+        <label>Price Trends:</label>
+        <select>          
+         <option value="1">1 day</option>
+         <option value="2">7 days</option>
+         <option value="3">30 days</option>
+         <option value="4">90 days</option>
+         <option value="5">N/A</option>
+        </select>
+       </div>
+
+       <div className="bg-area-chart">
+        <div className="border-area-chart">
+         <AreaChart
           width={730}
           height={250}
           data={this.state.priceHistoryCoinBTC}
@@ -85,7 +98,8 @@ export class PriceHistory extends React.Component {
           <Tooltip formatter={formatTooltip}/>
           <Area type="monotone" dataKey="quote" stroke={this.props.color} fillOpacity={1} fill={this.props.color} />
         </AreaChart>
-      </div>
+       </div>
+       </div>
       </div>
     );
   }

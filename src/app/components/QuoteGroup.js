@@ -29,9 +29,6 @@ export class QuoteGroup extends React.Component {
       .then((responseJson) => {
         return this.setBestPrice(responseJson);
       })
-      //.then((data) => {
-      //  return this.truncateQuotes(data);
-      //})
       .then((data) => {
         this.setState({ quotes: data });
       })    

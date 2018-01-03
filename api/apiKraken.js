@@ -1,6 +1,7 @@
 const db = require('../db/db');
 
 const tickers = {
+  BTC: 'XBTUSD',
   ETH: 'XETHXXBT',
   LTC: 'XLTCXXBT',
   DASH: 'DASHXBT',
@@ -26,6 +27,9 @@ module.exports = {
       case module.exports.tickers.DASH:
         db.updatePrice('DASH', 'kraken', datetime, obj.result.DASHXBT.c[0]);
         break;
+      case module.exports.tickers.BTC:
+        db.updatePrice('BTC', 'kraken', datetime, obj.result.XXBTZUSD.c[0]);
+        break;        
       default:
         console.log('Error');
     }

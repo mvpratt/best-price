@@ -82,6 +82,7 @@ const getCurrentPrice = function (source) {
       httpGetAsync(apiKraken.url + apiKraken.tickers.ETH, apiKraken.parseResponse, apiKraken.tickers.ETH);
       httpGetAsync(apiKraken.url + apiKraken.tickers.LTC, apiKraken.parseResponse, apiKraken.tickers.LTC);
       httpGetAsync(apiKraken.url + apiKraken.tickers.DASH, apiKraken.parseResponse, apiKraken.tickers.DASH);
+      httpGetAsync(apiKraken.url + apiKraken.tickers.BTC, apiKraken.parseResponse, apiKraken.tickers.BTC);
       break;
     case 'poloniex':
       httpGetAsync(apiPoloniex.url, apiPoloniex.parseResponse, 'all');
@@ -90,6 +91,7 @@ const getCurrentPrice = function (source) {
       httpGetAsync(apiBittrex.url + apiBittrex.tickers.ETH, apiBittrex.parseResponse, apiBittrex.tickers.ETH);
       httpGetAsync(apiBittrex.url + apiBittrex.tickers.LTC, apiBittrex.parseResponse, apiBittrex.tickers.LTC);
       httpGetAsync(apiBittrex.url + apiBittrex.tickers.DASH, apiBittrex.parseResponse, apiBittrex.tickers.DASH);
+      httpGetAsync(apiBittrex.url + apiBittrex.tickers.BTC, apiBittrex.parseResponse, apiBittrex.tickers.BTC);
       break;      
     default:
       console.log('Error');

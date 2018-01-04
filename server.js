@@ -6,14 +6,15 @@ Michael V Pratt  [ github.com/mvpratt ] [ Twitter: @mikevpratt ]
 TODO:
 
 Major tasks:
-  Bitcoin addresses
   Eth contract tie-in
   Make a few slides to show the overall design - block diagram
   move data massaging from front end to backend
+  Webpack hot module reload
+  Deploy on Heroku
+  clear up server.js main section
 
 Code quality:
-  script to start postgresql database
-  clear up server.js main section
+  script to start postgresql database and create the table
   fix so dont have to pre-populate prices (shows incomplete sql knowledge)
   make a global app scope
   Handle all errors
@@ -21,19 +22,15 @@ Code quality:
   Check for bad input -- rest api
 
 Frontend:
-  Fix favicon error
   Add selector for history range (1day - 90day)  per coin
-  Webpack hot module reload
-  get latest btc price
-  fix savings estimate
 
 Misc:
-  Deploy on Heroku
   How to know if db entries are stale -- did requests work> -- disp error
   unit tests --?
   Logging with Morgan js module
 
 Defer:
+  Fix favicon error
   scrub css files
   protect postgres user name -- env variable
   Use await?  ES6 features
@@ -113,8 +110,7 @@ const timer = function () {
   getAllCurrentPrices();
 };
 
-// Main
-if (process.env.NODE_ENV === 'dev-server') {
+const startDevServer = function() {
   console.log('Starting dev-server ...');
   // This stands up the webpack-dev-server
   // with Hot Module Reloading enabled.
@@ -158,21 +154,20 @@ if (process.env.NODE_ENV === 'dev-server') {
   getPriceHistory('LTC');
   getPriceHistory('DASH');
 
-  let intervalId = setInterval(timer, refreshCurrentPrices);  
-} 
-else if (process.env.NODE_ENV === 'dev-api') {
+  let intervalId = setInterval(timer, refreshCurrentPrices);
+};
+
+const startDevAPI = function() {
   console.log('Starting dev-api ...');
   // This stands up the express.js API
   const app = express();
-
-  // We define the API routes here
   routes.defineApi(app);
-
   app.listen(8081, () => {
     console.log('API is up!');
   });
-} 
-else { // todo - not tested
+};
+
+const startProductionServer = function() {
   console.log('Starting PROD ...');
   // = PROD =
   // This is here for simplicity's sake,
@@ -185,13 +180,21 @@ else { // todo - not tested
   // should contain an `index.html` and
   // a `bundle.js` file only.
   app.use('/', express.static('bundle'));
-
-  // We define the API routes here
   routes.defineApi(app);
-
   app.listen(8080, () => {
     console.log('Both PROD front-end and API are up!');
   });
+};
+
+// Main
+if (process.env.NODE_ENV === 'dev-server') {
+  startDevServer(); 
+} 
+else if (process.env.NODE_ENV === 'dev-api') {
+  startDevAPI();
+} 
+else { // todo - not tested
+  startProductionServer();
 }
 // End main
 // }

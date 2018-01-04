@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QuoteRow } from './QuoteRow';
 
-// todo - 
-
 export class QuoteGroup extends React.Component {
   constructor(props) {
     super(props);
@@ -45,7 +43,7 @@ export class QuoteGroup extends React.Component {
     return fetch('http://localhost:8080/quote/' + coin)
       .then(response => response.json())
       .then((responseJson) => {
-        return responseJson;//this.setBestPrice(responseJson);
+        return responseJson;
       }) 
   }
 

@@ -16,6 +16,9 @@
   },
   "author": "mvpratt@gmail.com",
   "license": "MIT",
+  "engines": {
+    "node": "8.4.0"
+  },
   "dependencies": {
     "concurrently": "^3.5.1",
     "express": "^4.16.2",

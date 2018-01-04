@@ -12,7 +12,8 @@
     "dev-server": "NODE_ENV=dev-server node server.js",
     "dev-api": "NODE_ENV=dev-api node server.js",
     "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run dev-api\"",
-    "prod": "webpack -p && node server.js"
+    "prod": "webpack -p && node server.js",
+    "clean": "rm -rf dist/app"
   },
   "author": "mvpratt@gmail.com",
   "license": "MIT",

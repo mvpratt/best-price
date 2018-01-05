@@ -48,11 +48,11 @@ There are two main steps (1) Set up PostgreSQL on your local machine and (2) ins
 `/webpack.config.js` - Webpack configuration  
 
 ## Environment Variables
-These envirnment variables should be set; example values:
-PGHOST="localhost"
-PGUSER="postgres"
-PGPASSWORD="null"
-PGDATABASE="sample_db"
+These envirnment variables should be set; example values:  
+PGHOST="localhost"  
+PGUSER="postgres"  
+PGPASSWORD="null"  
+PGDATABASE="sample_db"  
 
 
 ## Screenshot

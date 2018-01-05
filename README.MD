@@ -13,16 +13,16 @@ A webapp to find the best exchange price for several cryptocurrencies.
  * See package.json for additional details
 
 ## Architecture
-*Back-end:*
+*Back-end:*  
 Node.js Server gets the latest exhange rates stores in a local database, 
 makes a REST API available to the Client webapp
 
-*Front-end:*
-React.js Client displays the latest prices as well as historical trends.  
-The current best price is highlighted.  User may view 1 day, 7 day, 30 day, 
-and 0 day price trends (default is 30 day)
+*Front-end:*  
+React.js Client displays the latest prices as well as historical trends. The 
+current best price is highlighted.  User may view 1 day, 7 day, 30 day, and 
+90 day price trends (default is 30 day)
 
-*Initialization:*
+*Initialization:*  
 An initialization script sets up the database
 
 ## Installation
@@ -35,16 +35,16 @@ There are two main steps (1) Set up PostgreSQL on your local machine and (2) ins
 6. `npm run dev`
 
 ## Files
-/api - Exchange APIs  
-/db/db.js - PSQL database library  
-/db/dbInit - Script to initialize the `prices` table   
-/db/dbConfig - User name and pwd for postgresql  
-/dist - Client code bundled for production  
-/routes - REST API  
-/server.js - NodeJS server code  
-/src - Client source code  
-/webpack.config.js - Webpack configuration  
+`/api` - Exchange APIs  
+`/db/db.js` - PSQL database library  
+`/db/dbInit` - Script to initialize the `prices` table   
+`/db/dbConfig` - User name and pwd for postgresql  
+`/dist` - Client code bundled for production  
+`/routes` - REST API  
+`/server.js` - NodeJS server code  
+`/src` - Client source code  
+`/webpack.config.js` - Webpack configuration  
 
 
 ## Screenshot
-https://github.com/mvpratt/best-price/Screenshot.png
+https://github.com/mvpratt/best-price/BestPriceScreenshot.png

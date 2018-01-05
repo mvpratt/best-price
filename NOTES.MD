@@ -37,3 +37,10 @@ https://facebook.github.io/react-native/docs/network.html
 
 HTML color picker
 https://www.google.com/search?q=html+color+picker&oq=html+color&aqs=chrome.0.0j69i57j0l4.2913j0j7&sourceid=chrome&ie=UTF-8
+
+Design Guidelines:
+* Assume front-end and back-end are asynchronous
+* Beware global variables
+* Organize code into modules
+* Use promises vs callbacks 
+* Use REST APIs vs socket

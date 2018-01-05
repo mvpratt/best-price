@@ -120,7 +120,6 @@ const startDevServer = function() {
   // webpackConfig.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/dev-server');
 
   const compiler = webpack(webpackConfig);
-
   const options = {
     // contentBase: './dist',
     hot: true,
@@ -159,12 +158,15 @@ const startDevServer = function() {
 
 const startDevAPI = function() {
   console.log('Starting dev-api ...');
+  
   // This stands up the express.js API
   const app = express();
   routes.defineApi(app);
   app.listen(8081, () => {
     console.log('API is up!');
   });
+
+
 };
 
 const startProductionServer = function() {

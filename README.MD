@@ -27,3 +27,12 @@ Guidelines:
 
 Init:
 An initialization script sets up the database
+
+## Installation
+1 - Install PostgreSQL
+2 - npm install
+3 - npm run dbinit
+4 - npm run build
+5 - npm run dev
+
+

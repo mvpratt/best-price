@@ -27,14 +27,21 @@ using the best exchange rate.  User may also view 1 day, 7 day, 30 day, and
 An initialization script sets up the database
 
 ## Installation
-There are two main steps (1) Set up PostgreSQL on your local machine and (2) install the NodeJS webapp
+### Postgress
 1. Install PostgreSQL (https://www.postgresql.org)
 2. Create a database called 'sample_db' (https://www.codementor.io/devops/tutorial/getting-started-postgresql-server-mac-osx)
-3. `npm install`
-4. `npm start` (shortcut) OR
-* `npm run build`
-* `npm run dbinit`
-* `npm run dev`
+3. Set these environment variables to match your database configuration; example values:  
+ * `PGHOST="localhost"`  
+ * `PGUSER="postgres"`  
+ * `PGPASSWORD="null"`  
+ * `PGDATABASE="sample_db"`  
+
+### Node app
+4. `npm install`
+5. `npm start` (shortcut) OR
+ * `npm run build`
+ * `npm run dbinit`
+ * `npm run dev`
 
 ## Files
 `/api` - Exchange APIs  
@@ -48,11 +55,7 @@ There are two main steps (1) Set up PostgreSQL on your local machine and (2) ins
 `/webpack.config.js` - Webpack configuration  
 
 ## Environment Variables
-These envirnment variables should be set; example values:  
-PGHOST="localhost"  
-PGUSER="postgres"  
-PGPASSWORD="null"  
-PGDATABASE="sample_db"  
+
 
 
 ## Screenshot

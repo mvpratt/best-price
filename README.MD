@@ -18,8 +18,8 @@ Node.js Server gets the latest exhange rates stores in a local database,
 makes a REST API available to the Client webapp
 
 *Front-end:*  
-React.js Client displays the latest prices as well as historical trends. The 
-current best price is highlighted.  User may view 1 day, 7 day, 30 day, and 
+React.js Client displays the latest prices and how much can be saved by 
+using the best exchange rate.  User may also view 1 day, 7 day, 30 day, and 
 90 day price trends (default is 30 day)
 
 *Initialization:*  
@@ -30,8 +30,8 @@ There are two main steps (1) Set up PostgreSQL on your local machine and (2) ins
 1. Install PostgreSQL (https://www.postgresql.org)
 2. Create a database called 'sample_db' (https://www.codementor.io/devops/tutorial/getting-started-postgresql-server-mac-osx)
 3. `npm install`
-4. `npm run dbinit`
-5. `npm run build`
+4. `npm run build`
+5. `npm run dbinit`
 6. `npm run dev`
 
 ## Files
@@ -47,4 +47,4 @@ There are two main steps (1) Set up PostgreSQL on your local machine and (2) ins
 
 
 ## Screenshot
-https://github.com/mvpratt/best-price/BestPriceScreenshot.png
+https://github.com/mvpratt/best-price/blob/master/BestPriceScreenshot.png

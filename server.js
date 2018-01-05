@@ -1,49 +1,10 @@
 
 /*
-## Author
-Michael V Pratt  [ github.com/mvpratt ] [ Twitter: @mikevpratt ]
-
-TODO:
-
-Major tasks:
-  Eth contract tie-in
-  Make a few slides to show the overall design - block diagram
-  move data massaging from front end to backend
-  Webpack hot module reload
-  Deploy on Heroku
-  clear up server.js main section
-
-Code quality:
-  script to start postgresql database and create the table
-  fix so dont have to pre-populate prices (shows incomplete sql knowledge)
-  make a global app scope
-  Handle all errors
-  react props validation -- check all -- why lint error?
-  Check for bad input -- rest api
-
-Frontend:
-  Add selector for history range (1day - 90day)  per coin
-
-Misc:
-  How to know if db entries are stale -- did requests work> -- disp error
-  unit tests --?
-  Logging with Morgan js module
-
-Defer:
-  Fix favicon error
-  scrub css files
-  protect postgres user name -- env variable
-  Use await?  ES6 features
-  Change db name from sample_db
-  use import instead of require - ES6 - not supported by node?
-  Move latest price data out of database and into front-end (try to use socket for latest)
-*/
-
-
-// myApp = function(){
+ * Author
+ * Michael V Pratt  [ github.com/mvpratt ] [ Twitter: @mikevpratt ]
+ */
 
 // ==== DEPENDENCIES ===//
-
 // External
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const webpack = require('webpack');
@@ -57,10 +18,9 @@ const apiPoloniex = require('./api/apiPoloniex');
 const apiKraken = require('./api/apiKraken');
 const apiBittrex = require('./api/apiBittrex');
 const apiCoinCap = require('./api/apiCoinCap');
+// ==== END DEPENDENCIES ===//
 
 const refreshCurrentPrices = 3000;
-
-// ==== END DEPENDENCIES ===//
 
 // sends request to url, returns response
 const httpGetAsync = function (theUrl, parseResponse, ticker) {
@@ -96,10 +56,15 @@ const getCurrentPrice = function (source) {
   }
 };
 
-const getAllCurrentPrices = function() {
+const getAllPriceData = function() {
   getCurrentPrice('kraken');
   getCurrentPrice('poloniex');
   getCurrentPrice('Bittrex');
+
+  getPriceHistory('BTC');
+  getPriceHistory('ETH');
+  getPriceHistory('LTC');
+  getPriceHistory('DASH');  
 };
 
 const getPriceHistory = function (ticker) {
@@ -107,16 +72,14 @@ const getPriceHistory = function (ticker) {
 };
 
 const timer = function () {
-  getAllCurrentPrices();
+  getAllPriceData();
 };
 
+// This stands up the webpack-dev-server
 const startDevServer = function() {
-  console.log('Starting dev-server ...');
-  // This stands up the webpack-dev-server
-  // with Hot Module Reloading enabled.
-  // The following is needed in order for
-  // Hot Module Reloading to work.
+  console.log('Starting server (development environment) ...');
 
+  // Hot module reloading
   // webpackConfig.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/dev-server');
 
   const compiler = webpack(webpackConfig);
@@ -125,8 +88,6 @@ const startDevServer = function() {
     hot: true,
     host: 'localhost',
   };
-
-  WebpackDevServer.addDevServerEntrypoints(webpackConfig, options);
 
   const server = new WebpackDevServer(compiler, {
     contentBase: './dist',
@@ -143,61 +104,50 @@ const startDevServer = function() {
     },
   });
 
-  server.listen(8080, 'localhost', () => {
-    console.log('dev server listening on port 8080');
-  });
-
-  getAllCurrentPrices();
-  getPriceHistory('BTC');
-  getPriceHistory('ETH');
-  getPriceHistory('LTC');
-  getPriceHistory('DASH');
-
+  WebpackDevServer.addDevServerEntrypoints(webpackConfig, options);
+  getAllPriceData();
   let intervalId = setInterval(timer, refreshCurrentPrices);
+  server.listen(8080, 'localhost', () => {
+    console.log('Development server listening on port 8080');
+  });
 };
 
+// This stands up the express.js API
 const startDevAPI = function() {
-  console.log('Starting dev-api ...');
-  
-  // This stands up the express.js API
+  console.log('Starting client API ...');
   const app = express();
   routes.defineApi(app);
   app.listen(8081, () => {
-    console.log('API is up!');
+    console.log('Client API is up!');
   });
-
-
 };
 
-const startProductionServer = function() {
-  console.log('Starting PROD ...');
-  // = PROD =
-  // This is here for simplicity's sake,
-  // in a real-world application none of
-  // the development code should be copied
-  // over to the production server.
-  const app = express();
+// Note - in real world the development code should not be copied
+// over to the production server.
+const startProductionServer = function() { 
+  console.log('Starting server (production environment) ...');
 
-  // We serve the bundle folder, which
-  // should contain an `index.html` and
-  // a `bundle.js` file only.
+  // start client API
+  const app = express();
   app.use('/', express.static('bundle'));
   routes.defineApi(app);
+
+  // populate the database
+  getAllPriceData();
+  let intervalId = setInterval(timer, refreshCurrentPrices);  
   app.listen(8080, () => {
-    console.log('Both PROD front-end and API are up!');
+    console.log('Production server is up!');
   });
 };
 
-// Main
+// Main process
 if (process.env.NODE_ENV === 'dev-server') {
   startDevServer(); 
 } 
 else if (process.env.NODE_ENV === 'dev-api') {
   startDevAPI();
 } 
-else { // todo - not tested
-  startProductionServer();
+else { 
+  startProductionServer();  // TODO - not tested
 }
-// End main
-// }
 

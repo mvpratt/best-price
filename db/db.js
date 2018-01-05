@@ -1,10 +1,12 @@
 const { Pool } = require('pg');
 const dbConfig = require('./dbConfig');
 
-const connectionString = 'postgres://qeztuavgdyfmbm:50b0963fd388698301a20314deba8998e4df29b1e732f742cc945c830ea2b2a7@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d2ggtns0cukb42'
-const pool = new Pool({ connectionString: connectionString });
+// if heroku
+//const connectionString = 'postgres://qeztuavgdyfmbm:50b0963fd388698301a20314deba8998e4df29b1e732f742cc945c830ea2b2a7@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d2ggtns0cukb42'
+//const pool = new Pool({ connectionString: connectionString });
 
-//const pool = new Pool(dbConfig.config);
+// if local
+const pool = new Pool(dbConfig.config);
 
 const supportedCoins = ['ETH', 'LTC', 'DASH', 'BTC'];
 const supportedExchanges = ['kraken', 'coinbase', 'poloniex', 'Bittrex'];

@@ -4,16 +4,16 @@
   "description": "Find best crypto-asset prices",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build",
+    "start": "npm run build; npm run dbinit; npm run dev",
     "dbinit": "node db/dbInit.js",
-    "build1": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --hot",
     "build": "webpack -d",
     "build:prod": "webpack -p && cp src/index.html dist/index.html",
     "dev-server": "NODE_ENV=dev-server node server.js",
     "dev-api": "NODE_ENV=dev-api node server.js",
     "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run dev-api\"",
     "prod": "webpack -p && node server.js",
-    "clean": "rm -rf dist/app"
+    "clean": "rm -rf dist/app",
+    "//":  "[build script] webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --hot"
   },
   "author": "mvpratt@gmail.com",
   "license": "MIT",

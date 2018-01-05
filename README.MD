@@ -6,6 +6,7 @@ Michael V Pratt  [ github.com/mvpratt ] [ Twitter: @mikevpratt ]
 A webapp to find the best exchange price for several cryptocurrencies. 
 * Currencies: ETH, LTC, DASH
 * Exchanges: Poloniex, Kraken, Bittrex
+* Price Trends: CoinCap
 
 ## Requirements
  * Node.js v8.4.0
@@ -30,20 +31,28 @@ There are two main steps (1) Set up PostgreSQL on your local machine and (2) ins
 1. Install PostgreSQL (https://www.postgresql.org)
 2. Create a database called 'sample_db' (https://www.codementor.io/devops/tutorial/getting-started-postgresql-server-mac-osx)
 3. `npm install`
-4. `npm run build`
-5. `npm run dbinit`
-6. `npm run dev`
+4. `npm start` (shortcut) OR
+* `npm run build`
+* `npm run dbinit`
+* `npm run dev`
 
 ## Files
 `/api` - Exchange APIs  
-`/db/db.js` - PSQL database library  
+`/db/db.js` - PSQL database api  
 `/db/dbInit` - Script to initialize the `prices` table   
 `/db/dbConfig` - User name and pwd for postgresql  
 `/dist` - Client code bundled for production  
 `/routes` - REST API  
-`/server.js` - NodeJS server code  
+`/server.js` - Node.js server code  
 `/src` - Client source code  
 `/webpack.config.js` - Webpack configuration  
+
+## Environment Variables
+These envirnment variables should be set; example values:
+PGHOST="localhost"
+PGUSER="postgres"
+PGPASSWORD="null"
+PGDATABASE="sample_db"
 
 
 ## Screenshot

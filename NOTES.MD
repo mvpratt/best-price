@@ -4,8 +4,6 @@
 Major tasks:
   Add selector for history range (1day - 90day)  per coin
   script to start postgresql database and create the table
-  protect postgres user name -- env variable
-  Change db name from sample_db
 
   Test production server mode / deploy to Heroku
   Eth contract tie-in

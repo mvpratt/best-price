@@ -54,9 +54,5 @@ An initialization script sets up the database
 `/src` - Client source code  
 `/webpack.config.js` - Webpack configuration  
 
-## Environment Variables
-
-
-
 ## Screenshot
 https://github.com/mvpratt/best-price/blob/master/BestPriceScreenshot.png

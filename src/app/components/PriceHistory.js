@@ -18,6 +18,13 @@ export class PriceHistory extends React.Component {
     this.state = {
       priceHistoryCoinBTC: [],
       isLoading: true,
+  left : 'dataMin',
+  right : 'dataMax',
+  refAreaLeft : '',
+  refAreaRight : '',
+  top : 'dataMax+1',
+  bottom : 'dataMin-1',
+  animation : true      
     };
   }
 
@@ -61,6 +68,7 @@ export class PriceHistory extends React.Component {
   }
 
   render() {
+
     if (this.state.isLoading) {
       return (
         <div>
@@ -71,30 +79,43 @@ export class PriceHistory extends React.Component {
     return (
       <div>      
        <div>
-        <label>Price Trends:</label>
+        <label>Price Trends:</label>        
         <select>          
-         <option value="1">1 day</option>
-         <option value="2">7 days</option>
-         <option value="3">30 days</option>
-         <option value="4">90 days</option>
-         <option value="5">N/A</option>
+         <option value="1">30 days</option>
+         <option value="2">None</option>
         </select>
        </div>
        <div className="bg-area-chart">
         <div className="border-area-chart">
          <AreaChart
-          width={730}
-          height={250}
-          data={this.state.priceHistoryCoinBTC}
-          margin={{
-            top: 20, right: 20, left: 20, bottom: 20,
-          }}
-        >
-          <XAxis dataKey="tstamp" type="category" minTickGap={150} tickFormatter={formatXAxis} />
-          <YAxis dataKey="quote" type="number" unit="btc" />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip formatter={formatTooltip}/>
-          <Area type="monotone" dataKey="quote" stroke={this.props.color} fillOpacity={1} fill={this.props.color} />
+            width={730}
+            height={250}
+            data={this.state.priceHistoryCoinBTC}
+            margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
+         >
+          <XAxis 
+            dataKey="tstamp" 
+            type="category" 
+            minTickGap={150} 
+            tickFormatter={formatXAxis} 
+          />
+          <YAxis dataKey="quote" 
+            type="number" 
+            unit="btc" 
+          />
+          <CartesianGrid 
+            strokeDasharray="3 3" 
+          />
+          <Tooltip 
+            formatter={formatTooltip}
+          />
+          <Area 
+            type="monotone" 
+            dataKey="quote" 
+            stroke={this.props.color} 
+            fillOpacity={1} 
+            fill={this.props.color} 
+          />
         </AreaChart>
        </div>
        </div>

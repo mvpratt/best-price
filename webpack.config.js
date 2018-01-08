@@ -2,10 +2,10 @@ const webpack = require('webpack');
 const path = require('path');
 
 const DIST_DIR = path.resolve(__dirname, 'dist');
-const SRC_DIR = path.resolve(__dirname, 'src');
+const SRC_DIR = path.resolve(__dirname, 'client');
 
 const config = {
-  entry: { app: ['whatwg-fetch', `${SRC_DIR}/app/index.js`] },
+  entry: { app: ['whatwg-fetch', `${SRC_DIR}/index.js`] },
 
   output: {
     path: `${DIST_DIR}/app`,

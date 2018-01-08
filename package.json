@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build; npm run dbinit; npm run dev",
-    "dbinit": "node db/dbInit.js",
+    "dbinit": "node server/db/dbInit.js",
     "build": "webpack -d",
     "build:prod": "webpack -p && cp src/index.html dist/index.html",
     "dev-server": "NODE_ENV=dev-server node server.js",

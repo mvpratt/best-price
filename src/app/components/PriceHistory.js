@@ -20,24 +20,26 @@ export class PriceHistory extends React.Component {
     this.state = {
       priceHistoryCoinBTC: [],
       isLoading: true,
+      show: true,
       xaxisMin: 'dataMin',    
     };
   }
 
   handlePriceSelect(event) {
-    const maxDateRange = 90;
-    const myDateRange = parseInt(event.target.value);
-    //console.log(myDateRange);
-    const maxSamples = this.state.priceHistoryCoinBTC.length;
-    //console.log(maxSamples);
-    const myNumSamples = Math.trunc(maxSamples * (myDateRange/maxDateRange));
-    //console.log(myNumSamples);   
-    const minTimestamp = this.state.priceHistoryCoinBTC[maxSamples - myNumSamples].tstamp;
-    //console.log(minTimestamp);
-
-    this.setState({       
-      xaxisMin: minTimestamp,    
-    });
+    const myDateRange = parseInt(event.target.value);    
+    if (myDateRange !== 0) {
+      const maxDateRange = 90;
+      const maxSamples = this.state.priceHistoryCoinBTC.length;
+      const myNumSamples = Math.trunc(maxSamples * (myDateRange/maxDateRange));   
+      const minTimestamp = this.state.priceHistoryCoinBTC[maxSamples - myNumSamples].tstamp;
+      this.setState({ 
+        xaxisMin: minTimestamp,
+        show: true,
+      });
+    }
+    else {
+      this.setState({ show: false });
+    }
   }
 
   massageData(coinVsUSD, btcVsUSD) {
@@ -74,38 +76,21 @@ export class PriceHistory extends React.Component {
       })
       .catch((error) => {
         console.error(error);
-      });
+      }
+    );
   }
 
-  render() {
-
-    if (this.state.isLoading) {
+  renderAreaChart() {
+    if(this.state.show) {    
       return (
-        <div>
-          <p>Loading price history...</p>
-        </div>
-      );
-    }
-    return (
-
-      <div>      
-       <div>
-        <label>Price Trends:</label>        
-        <select onChange={this.handlePriceSelect} defaultValue="90">          
-         <option value="7">7 days</option>
-         <option value="30">30 days</option>                 
-         <option value="90">90 days</option>
-         <option value="0">Hide</option>
-        </select>
-       </div>
        <div className="bg-area-chart">
         <div className="border-area-chart">
-         <AreaChart
+          <AreaChart
             width={730}
             height={250}
             data={this.state.priceHistoryCoinBTC}
             margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
-         >
+          >
           <XAxis 
             dataKey="tstamp" 
             type="number" 
@@ -114,29 +99,58 @@ export class PriceHistory extends React.Component {
             domain={[this.state.xaxisMin, 'dataMax']}
             allowDataOverflow={true}
           />
-          <YAxis dataKey="quote" 
+          <YAxis 
+            dataKey="quote" 
             type="number" 
             unit="btc" 
           />
-          <CartesianGrid 
-            strokeDasharray="3 3" 
-          />
-          <Tooltip 
-            formatter={formatTooltip}
-          />                    
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip formatter={formatTooltip} />                    
           <Area 
             type="monotone" 
             dataKey="quote" 
             stroke={this.props.color} 
             fillOpacity={1} 
             fill={this.props.color} 
-          />
-        
-        </AreaChart>
+          />        
+          </AreaChart>
+        </div>
        </div>
-       </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <div>
+          <p>Select date range to show price history...</p>
+        </div>
+      );  
+    }
+  }
+
+  render() {
+    if (this.state.isLoading) {
+      return (
+        <div>
+          <p>Loading price history...</p>
+        </div>
+      );
+    }
+    else {
+    return (
+      <div> 
+        <div>
+          <label>Price Trends:</label>        
+          <select onChange={this.handlePriceSelect} defaultValue="90">          
+             <option value="7">7 days</option>
+             <option value="30">30 days</option>                 
+             <option value="90">90 days</option>
+             <option value="0">Hide</option>
+          </select>
+          </div>
+          {this.renderAreaChart()}
+        </div>
+      );
+    }
   }
 }
 

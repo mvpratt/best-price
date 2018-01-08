@@ -9,6 +9,10 @@ Major tasks:
 make graph container responsive
 Capitalize exchange names
 Remove dbinit script
+move all code to src
+handle issue with bittrex api (returning null)
+handle issue with coincap returning short history (16 samples)
+handle http errors
 
   script to start postgresql database and create the table
   Test production server mode / deploy to Heroku

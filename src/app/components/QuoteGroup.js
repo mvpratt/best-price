@@ -14,8 +14,6 @@ export class QuoteGroup extends React.Component {
       intervalId: {},
       intervalRate: 1000,
       btcQuotes: [],
-      worstPrice: 42,
-      bestPrice: 42,
       priceDelta: 42,
       amtBTC: 0,
     };
@@ -91,8 +89,6 @@ export class QuoteGroup extends React.Component {
     }
 
     this.setState({ 
-      worstPrice: worstPrice,
-      bestPrice: bestPrice,
       priceDelta: worstPrice - bestPrice,        
     });
 
@@ -123,14 +119,16 @@ export class QuoteGroup extends React.Component {
   }
 
   renderQuoteRow(i) {
-    return <QuoteRow 
-              source={this.state.quotes[i].source} 
-              quote={this.state.quotes[i].quote} 
-              highlight={this.state.quotes[i].isBestPrice} 
-              amt={this.btcFormatter(this.state.amtBTC / this.state.quotes[i].quote)}
-              estimSavings={this.btcFormatter( this.state.amtBTC / this.state.quotes[i].quote * this.state.priceDelta ) }
-              savingsUSD={'$' + this.usdFormatter( this.state.amtBTC / this.state.quotes[i].quote * this.state.priceDelta * this.state.btcQuotes[i].quote ) }
-           />;
+    return (
+      <QuoteRow 
+        source={this.state.quotes[i].source} 
+        quote={this.state.quotes[i].quote} 
+        highlight={this.state.quotes[i].isBestPrice} 
+        amt={this.btcFormatter(this.state.amtBTC / this.state.quotes[i].quote)}
+        estimSavings={this.btcFormatter( this.state.amtBTC / this.state.quotes[i].quote * this.state.priceDelta ) }
+        savingsUSD={'$' + this.usdFormatter( this.state.amtBTC / this.state.quotes[i].quote * this.state.priceDelta * this.state.btcQuotes[i].quote ) }
+      />
+    );
   }
 
   render() {
@@ -143,13 +141,13 @@ export class QuoteGroup extends React.Component {
     }
     return (
       <div>
-          <label>Amount to Exchange (BTC)</label>
-          <input
-            onChange={this.handleChange}
-            value={this.state.text}
-            label="i_amount"
-            type="number" 
-          />      
+        <label>Amount to Exchange (BTC)</label>
+        <input
+          onChange={this.handleChange}
+          value={this.state.text}
+          label="i_amount"
+          type="number" 
+        />      
         <h6>Latest Quotes:</h6>
         <table>
           <thead>

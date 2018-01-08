@@ -13,11 +13,11 @@ const express = require('express');
 
 // Local
 const webpackConfig = require('./webpack.config.js');
-const routes = require('./routes/routes');
-const apiPoloniex = require('./api/apiPoloniex');
-const apiKraken = require('./api/apiKraken');
-const apiBittrex = require('./api/apiBittrex');
-const apiCoinCap = require('./api/apiCoinCap');
+const routes = require('./server/routes/routes');
+const apiPoloniex = require('./server/api/apiPoloniex');
+const apiKraken = require('./server/api/apiKraken');
+const apiBittrex = require('./server/api/apiBittrex');
+const apiCoinCap = require('./server/api/apiCoinCap');
 // ==== END DEPENDENCIES ===//
 
 const refreshCurrentPrices = 3000;

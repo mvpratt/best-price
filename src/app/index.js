@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { QuoteGroup } from './components/QuoteGroup';
 import { PriceHistory } from './components/PriceHistory';
-import { CoinGroup } from './components/CoinGroup';
+
 import './css/skeleton.css';
 import './css/normalize.css';
 import './css/custom.css';
@@ -12,20 +12,14 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.state = {
       priceHistoryBTCUSD: [],
       isLoading: true,
-      inputAmtBTC: 0,
       showEthereum: true,
-      showLitecoin: true,
-      showDash: true,
+      showLitecoin: false,
+      showDash: false,
     };
-  }
-
-  handleChange(event) {
-    this.setState({ inputAmtBTC: event.target.value });
   }
 
   handleCheckbox(event) {
@@ -57,7 +51,6 @@ class App extends React.Component {
               <h3>{coinName}</h3>
               <QuoteGroup 
                 coin={coinTicker} 
-                amtBTC={this.state.inputAmtBTC}
               />
               <PriceHistory 
                 coin={coinTicker} 
@@ -89,9 +82,10 @@ class App extends React.Component {
         </header> 
         <div className="container">
         <div className="row">
-         <div className="ten columns">
+
        <form>
-         <label className="example-send-yourself-copy">
+<div className="two columns">
+         <label >
            <input 
             type="checkbox" 
             name="eth" 
@@ -100,7 +94,9 @@ class App extends React.Component {
             </input>
            <span className="label-body">Ethereum</span>
          </label> 
-         <label className="example-send-yourself-copy">
+</div>
+<div className="two columns">
+         <label >
            <input 
             type="checkbox" 
             name="ltc" 
@@ -109,7 +105,9 @@ class App extends React.Component {
             </input>
            <span className="label-body">Litecoin</span>
          </label> 
-         <label className="example-send-yourself-copy">
+</div>         
+<div className="two columns">
+         <label >
            <input 
             type="checkbox" 
             name="dash" 
@@ -117,20 +115,16 @@ class App extends React.Component {
             checked={this.state.showDash}>
             </input>
            <span className="label-body">Dash</span>
-         </label>                   
+         </label> 
+</div>
         </form> 
-          <label>Amount to Exchange (BTC)</label>
-          <input
-            onChange={this.handleChange}
-            value={this.state.text}
-            label="i_amount"
-            type="number" 
-          />
           <br></br>
+        <div className="ten columns">          
           {this.renderCoinGroup('Ethereum', 'ETH', '#8884d8', this.state.showEthereum)}
           {this.renderCoinGroup('Litecoin', 'LTC', '#82ca9d', this.state.showLitecoin)}          
           {this.renderCoinGroup('Dash', 'DASH', '#f4b942', this.state.showDash)}
          </div>
+
         </div>
         </div>
       </div>

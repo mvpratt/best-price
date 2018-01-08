@@ -3,11 +3,15 @@
 
 Major tasks:
   Add selector for history range (1day - 90day)  per coin
-  script to start postgresql database and create the table
-
-  Test production server mode / deploy to Heroku
+    needs x-axis to be type number in order to adjust the domain
   Eth contract tie-in
   Second pass bitcoin tasks
+make graph container responsive
+Capitalize exchange names
+Remove dbinit script
+
+  script to start postgresql database and create the table
+  Test production server mode / deploy to Heroku
   move data massaging from front end to backend
 
 Documentation:
@@ -32,6 +36,23 @@ Defer:
   use import instead of require - ES6 - not supported by node?
 
 test branch
+
+/Users/mike/projects/best-price/api/apiBittrex.js:28
+[0]         db.updatePrice('DASH', 'Bittrex', datetime, obj.result.Last);
+[0]                                                               ^
+[0]
+[0] TypeError: Cannot read property 'Last' of null
+[0]     at parseResponse (/Users/mike/projects/best-price/api/apiBittrex.js:28:63)
+[0]     at exports.XMLHttpRequest.parse [as onreadystatechange] (/Users/mike/projects/best-price/server.js:30:7)
+[0]     at exports.XMLHttpRequest.dispatchEvent (/Users/mike/projects/best-price/node_modules/xmlhttprequest/lib/XMLHttpRequest.js:591:25)
+[0]     at setState (/Users/mike/projects/best-price/node_modules/xmlhttprequest/lib/XMLHttpRequest.js:610:14)
+[0]     at IncomingMessage.<anonymous> (/Users/mike/projects/best-price/node_modules/xmlhttprequest/lib/XMLHttpRequest.js:447:13)
+[0]     at emitNone (events.js:110:20)
+[0]     at IncomingMessage.emit (events.js:207:7)
+[0]     at endReadableNT (_stream_readable.js:1059:12)
+[0]     at _combinedTickCallback (internal/process/next_tick.js:138:11)
+[0]     at process._tickCallback (internal/process/next_tick.js:180:9)
+
 
 ## References / Acknowledgements: (- see package.json for dependencies)
 
@@ -78,3 +99,4 @@ https://www.google.com/search?q=html+color+picker&oq=html+color&aqs=chrome.0.0j6
 * Organize code into modules
 * Use promises vs callbacks 
 * Use REST APIs vs socket
+

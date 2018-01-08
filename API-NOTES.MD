@@ -94,7 +94,12 @@ Price History
 http://coincap.io/history/BTC   --- note: returns all history
 http://coincap.io/history/7day/BTC
 http://coincap.io/history/30day/BTC
+
 1day -> 185 samples.  approx 7 mins/sample.  oldest first
+7day - 627 samples
+30day - 721 samples
+90day - 1081 samples
+
 
 Response:
 {

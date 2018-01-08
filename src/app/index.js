@@ -67,7 +67,7 @@ class App extends React.Component {
     if (this.state.isLoading) {
       return (
         <div>
-          <p>Loading latest quotes...</p>
+          <p>Fetching price data ...</p>
         </div>
       );
     }
@@ -84,7 +84,7 @@ class App extends React.Component {
         <div className="row">
 
        <form>
-<div className="two columns">
+       <div className="two columns">
          <label >
            <input 
             type="checkbox" 
@@ -94,8 +94,8 @@ class App extends React.Component {
             </input>
            <span className="label-body">Ethereum</span>
          </label> 
-</div>
-<div className="two columns">
+       </div>
+       <div className="two columns">
          <label >
            <input 
             type="checkbox" 
@@ -105,8 +105,8 @@ class App extends React.Component {
             </input>
            <span className="label-body">Litecoin</span>
          </label> 
-</div>         
-<div className="two columns">
+       </div>         
+       <div className="two columns">
          <label >
            <input 
             type="checkbox" 
@@ -116,15 +116,16 @@ class App extends React.Component {
             </input>
            <span className="label-body">Dash</span>
          </label> 
-</div>
+       </div>
         </form> 
           <br></br>
+
         <div className="ten columns">          
           {this.renderCoinGroup('Ethereum', 'ETH', '#8884d8', this.state.showEthereum)}
           {this.renderCoinGroup('Litecoin', 'LTC', '#82ca9d', this.state.showLitecoin)}          
           {this.renderCoinGroup('Dash', 'DASH', '#f4b942', this.state.showDash)}
          </div>
-
+         
         </div>
         </div>
       </div>

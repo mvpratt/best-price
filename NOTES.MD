@@ -9,7 +9,6 @@ Major tasks:
   
   Eth contract tie-in
   Second pass bitcoin tasks
-  move code to server dir
   make repo public (for demo)
   Test production server mode / deploy to Heroku
 

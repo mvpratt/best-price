@@ -17,32 +17,32 @@ module.exports = {
     const obj = JSON.parse(value);
     const datetime = new Date(Date.now());
 
-    if(obj.success && obj !== null) {
-    switch (ticker) {
-      case module.exports.tickers.ETH:
-        db.updatePrice('ETH', 'Bittrex', datetime, obj.result.Last);
-        break;
-      case module.exports.tickers.LTC:
-        db.updatePrice('LTC', 'Bittrex', datetime, obj.result.Last);
-        break;
-      case module.exports.tickers.DASH:
-        db.updatePrice('DASH', 'Bittrex', datetime, obj.result.Last);
-        break;
-      case module.exports.tickers.BTC:
-        db.updatePrice('BTC', 'Bittrex', datetime, obj.result.Last);
-        break;        
-      default:
-        console.log('Error');
+    if (!obj.success){
+      console.log("Error: Bittrex parseResponse(): property .success is false");
+      console.log(obj);
     }
-    } 
-    else if (!obj.success){
-      console.log("Error: Bittrex API responded with success: false");
-    }
-    else if (obj === null) {
-      console.log("Error: Bittrex API responded with null Object");
+    else if( ('result' in obj) !== true || obj.result === undefined || obj.result === null ) {
+      console.log("Error: Bittrex parseResponse(): property .result is undefined");
+      console.log(obj);
     }
     else {
-      console.log("Error: Bittrex API response - unknown error");
+      switch (ticker) {
+        case module.exports.tickers.ETH:
+          db.updatePrice('ETH', 'Bittrex', datetime, obj.result.Last);
+          break;
+        case module.exports.tickers.LTC:
+          db.updatePrice('LTC', 'Bittrex', datetime, obj.result.Last);
+          break;
+        case module.exports.tickers.DASH:
+          db.updatePrice('DASH', 'Bittrex', datetime, obj.result.Last);
+          break;
+        case module.exports.tickers.BTC:
+          db.updatePrice('BTC', 'Bittrex', datetime, obj.result.Last);
+          console.log(obj);
+          break;        
+        default:
+          console.log('Error: Bittrex parseResponse(): Unsupported coin ticker');
+      }
     }
   },
 };

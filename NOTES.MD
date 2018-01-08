@@ -2,33 +2,25 @@
 ## TODO:
 
 Major tasks:
-
-  handle http errors and timeouts
-  handle issue with bittrex api (returning null)
-  handle issue with coincap returning short history (16 samples)
-  
+  handle http errors and timeouts -- in progress
+  handle empty json object -- in progress
+  handle front end rest api errors (when server is down)
   Eth contract tie-in
   Second pass bitcoin tasks
-  make repo public (for demo)
   Test production server mode / deploy to Heroku
+  refactor react code to streamline
 
-routes.js
-  // todo - move to db module
-  // todo - check for valid coin and valid source
-  // todo - change name of getpricehistory
-  // note - db invalid queries fail silently
+  How to know if db entries are stale -- did requests work> -- disp error
+  react props validation -- check all -- why lint error?
+  ESlint - cleanup
 
 Documentation:
   Architecture diagram
   REST api documentation
   Function comments
 
-Code quality:
-  Handle all errors
-  How to know if db entries are stale -- did requests work> -- disp error
-  react props validation -- check all -- why lint error?
-
 Defer:
+  Handle all errors
   Check for bad input from client -- rest api
   Logging with Morgan js module
   Unit testing
@@ -41,7 +33,10 @@ Defer:
   move data massaging from front end to backend
   make graph container responsive
   script to start postgresql database and create the table
-
+  routes.js
+  // todo - move to db module
+  // todo - check for valid coin and valid source
+  // todo - change name of getpricehistory
 
 ## References / Acknowledgements: (- see package.json for dependencies)
 

@@ -44,15 +44,16 @@ An initialization script sets up the database
  * `npm run dev`
 
 ## Files
-`/api` - Exchange APIs  
-`/db/db.js` - PSQL database api  
-`/db/dbInit` - Script to initialize the `prices` table   
-`/db/dbConfig` - User name and pwd for postgresql  
-`/dist` - Client code bundled for production  
-`/routes` - REST API  
-`/server.js` - Node.js server code  
-`/src` - Client source code  
-`/webpack.config.js` - Webpack configuration  
+`client` - Client source code
+`dist` - Client code bundled for production
+`server`
+`  |-api` - Exchange APIs  
+`  |-db/db.js` - PSQL database api  
+`  |-db/dbInit.js` - Script to initialize the `prices` table   
+`  |-db/dbConfig.js` - User name and pwd for postgresql  
+`  \-routes` - REST API for the front-end  
+`server.js` - NodeJS server code  
+`webpack.config.js` - Webpack configuration  
 
 ## Screenshot
 https://github.com/mvpratt/best-price/blob/master/BestPriceScreenshot.png

@@ -1,9 +1,3 @@
-//const config = {
-//  host: 'localhost',
-//  user: 'postgres',
-//  password: 'null',
-//  database: 'sample_db',
-//};
 
 const config = {
   host: process.env.PGHOST,

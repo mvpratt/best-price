@@ -61,18 +61,4 @@ module.exports = {
       module.exports.handler(err);
     });
   },
-
-
-/*
-  getPriceHistory: (coin, source) => {
-    const text = 'SELECT * FROM prices WHERE coin = $1 AND source = $2 ORDER BY tstamp';
-    const values = [coin, source];
-    return module.exports.query(text, values);
-  },
-
-  getQuote: (coin, sources) => {
-    const text = 'SELECT * FROM prices WHERE coin = $1 AND source = $2 OR coin = $1 AND source = $3 ORDER BY tstamp';
-    const values = [coin].concat(sources);
-    return module.exports.query(text, values);
-  }   */
 };

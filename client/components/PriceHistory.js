@@ -76,7 +76,7 @@ export class PriceHistory extends React.Component {
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error: PriceHistory.componentDidMount(). Failed to fetch price history from REST API' + error);
       }
     );
   }

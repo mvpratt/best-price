@@ -22,21 +22,29 @@ const apiCoinCap = require('./server/api/apiCoinCap');
 
 const refreshCurrentPrices = 3000;
 
-//handle
-//empty json object
-//error 404
-//timeout
+const handleHttpError = function (event) {
+  console.log("Error: HTTP request to external API failed");
+}
 
-
+const handleHttpTimeout = function (event) {
+  console.log("Error: HTTP request to external API timed out");
+}
 
 // sends request to url, returns response
 const httpGetAsync = function (theUrl, parseResponse, ticker) {
   const xmlHttp = new XMLHttpRequest();
+  xmlHttp.addEventListener("error", handleHttpError);
+  xmlHttp.timeout = 10000; // 10 seconds
+  xmlHttp.ontimeout = handleHttpTimeout;
+
   xmlHttp.onreadystatechange = function parse() {
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-      // check for errors
-      // debug
-      parseResponse(xmlHttp.responseText, ticker);
+      if (xmlHttp.responseText === null) {
+        console.log("Error: xmlhttprequest.responseText = null");
+      }
+      else {
+        parseResponse(xmlHttp.responseText, ticker);
+      }  
     }
   };
   xmlHttp.open('GET', theUrl, true); // true for asynchronous
@@ -61,7 +69,7 @@ const getCurrentPrice = function (source) {
       httpGetAsync(apiBittrex.url + apiBittrex.tickers.BTC, apiBittrex.parseResponse, apiBittrex.tickers.BTC);
       break;      
     default:
-      console.log('Error');
+      console.log('Error: getCurrentPrice(): invalid source');
   }
 };
 

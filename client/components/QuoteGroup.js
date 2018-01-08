@@ -40,7 +40,10 @@ export class QuoteGroup extends React.Component {
       })
       .then((data) => {
         this.setState({ btcQuotes: data });
-      })      
+      })
+      .catch((error) => {
+        console.error(error);
+      });      
   }
 
   getQuotes(coin) {
@@ -48,7 +51,10 @@ export class QuoteGroup extends React.Component {
       .then(response => response.json())
       .then((responseJson) => {
         return responseJson;
-      }) 
+      })
+      .catch((error) => {
+        console.error('Error: QuoteGroup.getQuotes(): Failed to fetch price quotes from REST API' + error);
+      });   
   }
 
   btcFormatter(data) {

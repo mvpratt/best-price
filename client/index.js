@@ -40,7 +40,7 @@ class App extends React.Component {
         });  
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error: index.componentDidMount(): Failed to fetch price history (BTC).  ' + error);
       });
   }  
 

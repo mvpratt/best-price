@@ -45,13 +45,13 @@ const httpGetAsync = function (theUrl, parseResponse, ticker) {
 
 const getCurrentPrice = function (source) {
   switch (source) {
-    case 'kraken':
+    case 'Kraken':
       httpGetAsync(apiKraken.url + apiKraken.tickers.ETH, apiKraken.parseResponse, apiKraken.tickers.ETH);
       httpGetAsync(apiKraken.url + apiKraken.tickers.LTC, apiKraken.parseResponse, apiKraken.tickers.LTC);
       httpGetAsync(apiKraken.url + apiKraken.tickers.DASH, apiKraken.parseResponse, apiKraken.tickers.DASH);
       httpGetAsync(apiKraken.url + apiKraken.tickers.BTC, apiKraken.parseResponse, apiKraken.tickers.BTC);
       break;
-    case 'poloniex':
+    case 'Poloniex':
       httpGetAsync(apiPoloniex.url, apiPoloniex.parseResponse, 'all');
       break;
     case 'Bittrex':
@@ -66,8 +66,8 @@ const getCurrentPrice = function (source) {
 };
 
 const getAllPriceData = function() {
-  getCurrentPrice('kraken');
-  getCurrentPrice('poloniex');
+  getCurrentPrice('Kraken');
+  getCurrentPrice('Poloniex');
   getCurrentPrice('Bittrex');
 
   getPriceHistory('BTC');

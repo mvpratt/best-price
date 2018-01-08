@@ -3,19 +3,21 @@
 
 Major tasks:
 
+  handle http errors and timeouts
   handle issue with bittrex api (returning null)
   handle issue with coincap returning short history (16 samples)
-  handle http errors
-
+  
   Eth contract tie-in
   Second pass bitcoin tasks
-  make graph container responsive
-  Capitalize exchange names
-  Remove dbinit script
-  move all code to src
-  script to start postgresql database and create the table
+  move code to server dir
+  make repo public (for demo)
   Test production server mode / deploy to Heroku
 
+routes.js
+  // todo - move to db module
+  // todo - check for valid coin and valid source
+  // todo - change name of getpricehistory
+  // note - db invalid queries fail silently
 
 Documentation:
   Architecture diagram
@@ -24,13 +26,13 @@ Documentation:
 
 Code quality:
   Handle all errors
-  Unit testing
-  Check for bad input -- rest api
   How to know if db entries are stale -- did requests work> -- disp error
-  Logging with Morgan js module
   react props validation -- check all -- why lint error?
 
 Defer:
+  Check for bad input from client -- rest api
+  Logging with Morgan js module
+  Unit testing
   make a global app scope
   Webpack hot module reload
   Fix favicon error
@@ -38,22 +40,8 @@ Defer:
   Use await?  ES6 features
   use import instead of require - ES6 - not supported by node?
   move data massaging from front end to backend
-
-/Users/mike/projects/best-price/api/apiBittrex.js:28
-[0]         db.updatePrice('DASH', 'Bittrex', datetime, obj.result.Last);
-[0]                                                               ^
-[0]
-[0] TypeError: Cannot read property 'Last' of null
-[0]     at parseResponse (/Users/mike/projects/best-price/api/apiBittrex.js:28:63)
-[0]     at exports.XMLHttpRequest.parse [as onreadystatechange] (/Users/mike/projects/best-price/server.js:30:7)
-[0]     at exports.XMLHttpRequest.dispatchEvent (/Users/mike/projects/best-price/node_modules/xmlhttprequest/lib/XMLHttpRequest.js:591:25)
-[0]     at setState (/Users/mike/projects/best-price/node_modules/xmlhttprequest/lib/XMLHttpRequest.js:610:14)
-[0]     at IncomingMessage.<anonymous> (/Users/mike/projects/best-price/node_modules/xmlhttprequest/lib/XMLHttpRequest.js:447:13)
-[0]     at emitNone (events.js:110:20)
-[0]     at IncomingMessage.emit (events.js:207:7)
-[0]     at endReadableNT (_stream_readable.js:1059:12)
-[0]     at _combinedTickCallback (internal/process/next_tick.js:138:11)
-[0]     at process._tickCallback (internal/process/next_tick.js:180:9)
+  make graph container responsive
+  script to start postgresql database and create the table
 
 
 ## References / Acknowledgements: (- see package.json for dependencies)

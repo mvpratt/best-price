@@ -19,16 +19,16 @@ module.exports = {
 
     switch (ticker) {
       case module.exports.tickers.ETH:
-        db.updatePrice('ETH', 'kraken', datetime, obj.result.XETHXXBT.c[0]);
+        db.updatePrice('ETH', 'Kraken', datetime, obj.result.XETHXXBT.c[0]);
         break;
       case module.exports.tickers.LTC:
-        db.updatePrice('LTC', 'kraken', datetime, obj.result.XLTCXXBT.c[0]);
+        db.updatePrice('LTC', 'Kraken', datetime, obj.result.XLTCXXBT.c[0]);
         break;
       case module.exports.tickers.DASH:
-        db.updatePrice('DASH', 'kraken', datetime, obj.result.DASHXBT.c[0]);
+        db.updatePrice('DASH', 'Kraken', datetime, obj.result.DASHXBT.c[0]);
         break;
       case module.exports.tickers.BTC:
-        db.updatePrice('BTC', 'kraken', datetime, obj.result.XXBTZUSD.c[0]);
+        db.updatePrice('BTC', 'Kraken', datetime, obj.result.XXBTZUSD.c[0]);
         break;        
       default:
         console.log('Error');

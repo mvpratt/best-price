@@ -1,26 +1,22 @@
 const { Pool } = require('pg');
 const dbConfig = require('./dbConfig');
 
-// if heroku
+// heroku
 //const connectionString = 'postgres://qeztuavgdyfmbm:50b0963fd388698301a20314deba8998e4df29b1e732f742cc945c830ea2b2a7@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d2ggtns0cukb42'
 //const pool = new Pool({ connectionString: connectionString });
 
-// if local
+// local db
 const pool = new Pool(dbConfig.config);
 
 const supportedCoins = ['ETH', 'LTC', 'DASH', 'BTC'];
-const supportedExchanges = ['kraken', 'coinbase', 'poloniex', 'Bittrex'];
-const quoteSources = ['poloniex', 'kraken', 'Bittrex'];
-const priceHistorySource = 'coincap';
-const validCoins = ['ETH', 'LTC', 'DASH', 'BTC'];
+const quoteSources = ['Poloniex', 'Kraken', 'Bittrex'];
+const priceHistorySource = 'Coincap';
 
 module.exports = {
 
   supportedCoins,
-  supportedExchanges,
   quoteSources,
   priceHistorySource,
-  validCoins,
 
   query: (text, params, callback) => pool.query(text, params, callback),
 

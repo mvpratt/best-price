@@ -6,7 +6,7 @@ export class QuoteRow extends React.Component {
           if (this.props.highlight){
             return(                
              <tr className="bg-best-price">
-              <td>>{this.props.source} </td>
+              <td>{this.props.source} </td>
               <td>{this.props.quote}</td>
               <td>{this.props.amt}</td>
               <td>{this.props.estimSavings}</td>

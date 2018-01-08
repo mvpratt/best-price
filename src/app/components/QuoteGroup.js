@@ -5,6 +5,7 @@ import { QuoteRow } from './QuoteRow';
 export class QuoteGroup extends React.Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.usdFormatter = this.usdFormatter.bind(this);
     this.btcFormatter = this.btcFormatter.bind(this);    
     this.state = {
@@ -16,7 +17,12 @@ export class QuoteGroup extends React.Component {
       worstPrice: 42,
       bestPrice: 42,
       priceDelta: 42,
+      amtBTC: 0,
     };
+  }
+
+  handleChange(event) {
+    this.setState({ amtBTC: event.target.value });
   }
 
   componentWillUnmount() {
@@ -46,13 +52,6 @@ export class QuoteGroup extends React.Component {
         return responseJson;
       }) 
   }
-
-  //truncateQuotes(_quotes) {
-  //  for (var i = 1; i <= _quotes.length-1; i += 1) {
-  //      _quotes[i].quote = Math.trunc(_quotes[i].quote * 10000) / 10000;
-  //  }
-  //  return _quotes;    
-  //}
 
   btcFormatter(data) {
     return Math.trunc(data * 1000000) / 1000000;
@@ -128,9 +127,9 @@ export class QuoteGroup extends React.Component {
               source={this.state.quotes[i].source} 
               quote={this.state.quotes[i].quote} 
               highlight={this.state.quotes[i].isBestPrice} 
-              amt={this.btcFormatter(this.props.amtBTC / this.state.quotes[i].quote)}
-              estimSavings={this.btcFormatter( this.props.amtBTC / this.state.quotes[i].quote * this.state.priceDelta ) }
-              savingsUSD={'$' + this.usdFormatter( this.props.amtBTC / this.state.quotes[i].quote * this.state.priceDelta * this.state.btcQuotes[i].quote ) }
+              amt={this.btcFormatter(this.state.amtBTC / this.state.quotes[i].quote)}
+              estimSavings={this.btcFormatter( this.state.amtBTC / this.state.quotes[i].quote * this.state.priceDelta ) }
+              savingsUSD={'$' + this.usdFormatter( this.state.amtBTC / this.state.quotes[i].quote * this.state.priceDelta * this.state.btcQuotes[i].quote ) }
            />;
   }
 
@@ -144,15 +143,22 @@ export class QuoteGroup extends React.Component {
     }
     return (
       <div>
+          <label>Amount to Exchange (BTC)</label>
+          <input
+            onChange={this.handleChange}
+            value={this.state.text}
+            label="i_amount"
+            type="number" 
+          />      
         <h6>Latest Quotes:</h6>
         <table>
           <thead>
             <tr>
               <th><strong>Exchange</strong></th>
-              <th>Price (BTC)</th>
-              <th>QTY To Purchase ({this.props.coin})</th>
+              <th>Price (BTC)</th>              
+              <th>QTY ({this.props.coin})</th>
               <th>Savings (BTC)</th>
-              <th>Savings (USD)</th>
+              <th>Savings (USD)</th>            
             </tr>
           </thead>
           <tbody>

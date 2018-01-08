@@ -3,6 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { QuoteGroup } from './components/QuoteGroup';
 import { PriceHistory } from './components/PriceHistory';
+
 import './css/skeleton.css';
 import './css/normalize.css';
 import './css/custom.css';
@@ -11,16 +12,22 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
     this.state = {
       priceHistoryBTCUSD: [],
       isLoading: true,
-      inputAmtBTC: 0,
+      showEthereum: true,
+      showLitecoin: false,
+      showDash: false,
     };
   }
 
-  handleChange(e) {
-    this.setState({ inputAmtBTC: e.target.value });
+  handleCheckbox(event) {
+    this.setState({ 
+      showEthereum: event.target.name === 'eth'? event.target.checked : this.state.showEthereum,
+      showLitecoin: event.target.name === 'ltc'? event.target.checked : this.state.showLitecoin,
+      showDash: event.target.name === 'dash'? event.target.checked : this.state.showDash,      
+    });
   }
 
   componentDidMount() {
@@ -37,13 +44,13 @@ class App extends React.Component {
       });
   }  
 
-  renderCoinGroup(coinName, coinTicker, color) {
+  renderCoinGroup(coinName, coinTicker, color, show) {
+    if (show)
     return (
            <div>
               <h3>{coinName}</h3>
               <QuoteGroup 
                 coin={coinTicker} 
-                amtBTC={this.state.inputAmtBTC}
               />
               <PriceHistory 
                 coin={coinTicker} 
@@ -53,6 +60,7 @@ class App extends React.Component {
             <br></br>
            </div>
     );
+    else return (<p></p>)
   }
 
   render() {
@@ -74,21 +82,49 @@ class App extends React.Component {
         </header> 
         <div className="container">
         <div className="row">
-         <div className="ten columns">
-         
-          <label>Amount to Exchange (BTC)</label>
-          <input
-            onChange={this.handleChange}
-            value={this.state.text}
-            label="i_amount"
-            type="number" 
-          />
 
+       <form>
+<div className="two columns">
+         <label >
+           <input 
+            type="checkbox" 
+            name="eth" 
+            onChange={this.handleCheckbox}
+            checked={this.state.showEthereum}>
+            </input>
+           <span className="label-body">Ethereum</span>
+         </label> 
+</div>
+<div className="two columns">
+         <label >
+           <input 
+            type="checkbox" 
+            name="ltc" 
+            onChange={this.handleCheckbox}
+            checked={this.state.showLitecoin}>
+            </input>
+           <span className="label-body">Litecoin</span>
+         </label> 
+</div>         
+<div className="two columns">
+         <label >
+           <input 
+            type="checkbox" 
+            name="dash" 
+            onChange={this.handleCheckbox}
+            checked={this.state.showDash}>
+            </input>
+           <span className="label-body">Dash</span>
+         </label> 
+</div>
+        </form> 
           <br></br>
-          {this.renderCoinGroup('Ethereum', 'ETH', '#8884d8')}
-          {this.renderCoinGroup('Litecoin', 'LTC', '#82ca9d')}          
-          {this.renderCoinGroup('Dash', 'DASH', '#f4b942')}
+        <div className="ten columns">          
+          {this.renderCoinGroup('Ethereum', 'ETH', '#8884d8', this.state.showEthereum)}
+          {this.renderCoinGroup('Litecoin', 'LTC', '#82ca9d', this.state.showLitecoin)}          
+          {this.renderCoinGroup('Dash', 'DASH', '#f4b942', this.state.showDash)}
          </div>
+
         </div>
         </div>
       </div>
@@ -103,4 +139,4 @@ if (module.hot) {
   });
 }
 
-render(<App />, window.document.getElementById('app'));
+render(<App/>, window.document.getElementById('app'));

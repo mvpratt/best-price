@@ -6,7 +6,7 @@ const tickers = {
   DASH: 'DASH',
 };
 
-const url = 'http://coincap.io/history/30day/';
+const url = 'http://coincap.io/history/90day/';
 
 module.exports = {
   url,

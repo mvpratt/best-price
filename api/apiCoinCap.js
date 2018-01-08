@@ -14,11 +14,11 @@ module.exports = {
 
   parseResponse: (value, ticker) => {
     const obj = JSON.parse(value);
-    db.deletePrice(ticker, 'coincap'); // remove old price history
+    db.deletePrice(ticker, 'Coincap'); // remove old price history
 
     for (let i = 0; i < obj.price.length; i += 1) {
       const datetime = new Date(obj.price[i][0]);
-      db.insertPrice(ticker, 'coincap', datetime, obj.price[i][1]); // insert new price history
+      db.insertPrice(ticker, 'Coincap', datetime, obj.price[i][1]); // insert new price history
     }
   },
 };

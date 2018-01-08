@@ -16,9 +16,9 @@ module.exports = {
   parseResponse: (value, ticker) => { // doesnt use ticker argument
     const obj = JSON.parse(value);
     const datetime = new Date(Date.now());
-    db.updatePrice('ETH', 'poloniex', datetime, obj.BTC_ETH.last);
-    db.updatePrice('LTC', 'poloniex', datetime, obj.BTC_LTC.last);
-    db.updatePrice('DASH', 'poloniex', datetime, obj.BTC_DASH.last);
-    db.updatePrice('BTC', 'poloniex', datetime, obj.USDT_BTC.last);    
+    db.updatePrice('ETH', 'Poloniex', datetime, obj.BTC_ETH.last);
+    db.updatePrice('LTC', 'Poloniex', datetime, obj.BTC_LTC.last);
+    db.updatePrice('DASH', 'Poloniex', datetime, obj.BTC_DASH.last);
+    db.updatePrice('BTC', 'Poloniex', datetime, obj.USDT_BTC.last);    
   },
 };

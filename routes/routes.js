@@ -10,11 +10,6 @@ module.exports = {
     res.json(data.rows);
   },
 
-  // todo - move to db module
-  // todo - check for valid coin and valid source
-  // todo - change name of getpricehistory
-  // note - db invalid queries fail silently
-
   getQuote: (coin, sources, res) => {
     const text = 'SELECT * FROM prices \
                   WHERE coin = $1 AND source = $2 \

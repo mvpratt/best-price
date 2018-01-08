@@ -2,21 +2,20 @@
 ## TODO:
 
 Major tasks:
-  Add selector for history range (1day - 90day)  per coin
-    needs x-axis to be type number in order to adjust the domain
+
+  handle issue with bittrex api (returning null)
+  handle issue with coincap returning short history (16 samples)
+  handle http errors
+
   Eth contract tie-in
   Second pass bitcoin tasks
-make graph container responsive
-Capitalize exchange names
-Remove dbinit script
-move all code to src
-handle issue with bittrex api (returning null)
-handle issue with coincap returning short history (16 samples)
-handle http errors
-
+  make graph container responsive
+  Capitalize exchange names
+  Remove dbinit script
+  move all code to src
   script to start postgresql database and create the table
   Test production server mode / deploy to Heroku
-  move data massaging from front end to backend
+
 
 Documentation:
   Architecture diagram
@@ -38,8 +37,7 @@ Defer:
   scrub css files
   Use await?  ES6 features
   use import instead of require - ES6 - not supported by node?
-
-test branch
+  move data massaging from front end to backend
 
 /Users/mike/projects/best-price/api/apiBittrex.js:28
 [0]         db.updatePrice('DASH', 'Bittrex', datetime, obj.result.Last);

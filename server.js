@@ -22,11 +22,20 @@ const apiCoinCap = require('./api/apiCoinCap');
 
 const refreshCurrentPrices = 3000;
 
+//handle
+//empty json object
+//error 404
+//timeout
+
+
+
 // sends request to url, returns response
 const httpGetAsync = function (theUrl, parseResponse, ticker) {
   const xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function parse() {
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+      // check for errors
+      // debug
       parseResponse(xmlHttp.responseText, ticker);
     }
   };

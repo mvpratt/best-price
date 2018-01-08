@@ -67,7 +67,7 @@ class App extends React.Component {
     if (this.state.isLoading) {
       return (
         <div>
-          <p>Loading latest quotes...</p>
+          <p>Fetching price data ...</p>
         </div>
       );
     }
@@ -119,11 +119,13 @@ class App extends React.Component {
        </div>
         </form> 
           <br></br>
+
         <div className="ten columns">          
           {this.renderCoinGroup('Ethereum', 'ETH', '#8884d8', this.state.showEthereum)}
           {this.renderCoinGroup('Litecoin', 'LTC', '#82ca9d', this.state.showLitecoin)}          
           {this.renderCoinGroup('Dash', 'DASH', '#f4b942', this.state.showDash)}
          </div>
+         
         </div>
         </div>
       </div>

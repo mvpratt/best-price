@@ -17,6 +17,7 @@ module.exports = {
     const obj = JSON.parse(value);
     const datetime = new Date(Date.now());
 
+    if(obj.success && obj.result.Last !== null) {
     switch (ticker) {
       case module.exports.tickers.ETH:
         db.updatePrice('ETH', 'Bittrex', datetime, obj.result.Last);
@@ -32,6 +33,16 @@ module.exports = {
         break;        
       default:
         console.log('Error');
+    }
+    } 
+    else if (!obj.success){
+      console.log("Error: Bittrex API responded with success: false");
+    }
+    else if (obj.result.Last === null) {
+      console.log("Error: Bittrex API responded with Last: null");
+    }
+    else {
+      console.log("Error: Bittrex API response - unknown error");
     }
   },
 };

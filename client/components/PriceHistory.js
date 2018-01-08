@@ -20,14 +20,15 @@ export class PriceHistory extends React.Component {
     this.state = {
       priceHistoryCoinBTC: [],
       isLoading: true,
-      show: true,
+      show: false,
       xaxisMin: 'dataMin',    
     };
   }
 
   handlePriceSelect(event) {
-    const myDateRange = parseInt(event.target.value);    
-    if (myDateRange !== 0) {
+   
+    if (event.target.value !== "hide" && event.target.value !== "show") {
+      const myDateRange = parseInt(event.target.value);       
       const maxDateRange = 90;
       const maxSamples = this.state.priceHistoryCoinBTC.length;
       const myNumSamples = Math.trunc(maxSamples * (myDateRange/maxDateRange));   
@@ -121,7 +122,7 @@ export class PriceHistory extends React.Component {
     else {
       return (
         <div>
-          <p>Select date range to show price history...</p>
+          <p></p>
         </div>
       );  
     }
@@ -140,11 +141,12 @@ export class PriceHistory extends React.Component {
       <div> 
         <div>
           <label>Price Trends:</label>        
-          <select onChange={this.handlePriceSelect} defaultValue="90">          
+          <select onChange={this.handlePriceSelect} defaultValue="show">   
+             <option value="show" disabled hidden>Show</option>       
              <option value="7">7 days</option>
              <option value="30">30 days</option>                 
              <option value="90">90 days</option>
-             <option value="0">Hide</option>
+             <option value="hide">Hide</option>
           </select>
           </div>
           {this.renderAreaChart()}

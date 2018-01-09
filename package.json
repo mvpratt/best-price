@@ -13,7 +13,7 @@
     "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run dev-api\"",
     "prod": "webpack -p && node server.js",
     "clean": "rm -rf dist/app",
-    "//":  "[build script] webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --hot"
+    "//": "[build script] webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --hot"
   },
   "author": "mvpratt@gmail.com",
   "license": "MIT",
@@ -42,6 +42,7 @@
     "style-loader": "^0.19.1"
   },
   "devDependencies": {
+    "eslint": "^4.15.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",

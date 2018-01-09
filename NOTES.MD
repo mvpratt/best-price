@@ -51,7 +51,6 @@ https://www.google.com/search?q=html+color+picker&oq=html+color&aqs=chrome.0.0j6
 Major tasks:
   refactor react code to streamline
   ESlint - cleanup
-  Turn off bittrex logging
 
 Documentation:
   Architecture diagram

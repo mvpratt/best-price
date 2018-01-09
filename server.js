@@ -22,149 +22,149 @@ const apiCoinCap = require('./server/api/apiCoinCap');
 
 const refreshCurrentPrices = 3000;
 
-const handleHttpError = function (event) {
-  console.log("Error: HTTP request to external API failed");
-}
+const handleHttpError = function () {
+    console.log('Error: HTTP request to external API failed');
+};
 
-const handleHttpTimeout = function (event) {
-  console.log("Error: HTTP request to external API timed out");
-}
+const handleHttpTimeout = function () {
+    console.log('Error: HTTP request to external API timed out');
+};
 
 // sends request to url, returns response
 const httpGetAsync = function (theUrl, parseResponse, ticker) {
-  const xmlHttp = new XMLHttpRequest();
-  xmlHttp.addEventListener("error", handleHttpError);
-  xmlHttp.timeout = 10000; // 10 seconds
-  xmlHttp.ontimeout = handleHttpTimeout;
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.addEventListener('error', handleHttpError);
+    xmlHttp.timeout = 10000; // 10 seconds
+    xmlHttp.ontimeout = handleHttpTimeout;
 
-  xmlHttp.onreadystatechange = function parse() {
-    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-      if (xmlHttp.responseText === null) {
-        console.log("Error: xmlhttprequest.responseText = null");
-      }
-      else {
-        parseResponse(xmlHttp.responseText, ticker);
-      }  
-    }
-  };
-  xmlHttp.open('GET', theUrl, true); // true for asynchronous
-  xmlHttp.send(null);
+    xmlHttp.onreadystatechange = function parse() {
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+            if (xmlHttp.responseText === null) {
+                console.log('Error: xmlhttprequest.responseText = null');
+            }
+            else {
+                parseResponse(xmlHttp.responseText, ticker);
+            }  
+        }
+    };
+    xmlHttp.open('GET', theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
 };
 
 const getCurrentPrice = function (source) {
-  switch (source) {
+    switch (source) {
     case 'Kraken':
-      httpGetAsync(apiKraken.url + apiKraken.tickers.ETH, apiKraken.parseResponse, apiKraken.tickers.ETH);
-      httpGetAsync(apiKraken.url + apiKraken.tickers.LTC, apiKraken.parseResponse, apiKraken.tickers.LTC);
-      httpGetAsync(apiKraken.url + apiKraken.tickers.DASH, apiKraken.parseResponse, apiKraken.tickers.DASH);
-      httpGetAsync(apiKraken.url + apiKraken.tickers.BTC, apiKraken.parseResponse, apiKraken.tickers.BTC);
-      break;
+        httpGetAsync(apiKraken.url + apiKraken.tickers.ETH, apiKraken.parseResponse, apiKraken.tickers.ETH);
+        httpGetAsync(apiKraken.url + apiKraken.tickers.LTC, apiKraken.parseResponse, apiKraken.tickers.LTC);
+        httpGetAsync(apiKraken.url + apiKraken.tickers.DASH, apiKraken.parseResponse, apiKraken.tickers.DASH);
+        httpGetAsync(apiKraken.url + apiKraken.tickers.BTC, apiKraken.parseResponse, apiKraken.tickers.BTC);
+        break;
     case 'Poloniex':
-      httpGetAsync(apiPoloniex.url, apiPoloniex.parseResponse, 'all');
-      break;
+        httpGetAsync(apiPoloniex.url, apiPoloniex.parseResponse, 'all');
+        break;
     case 'Bittrex':
-      httpGetAsync(apiBittrex.url + apiBittrex.tickers.ETH, apiBittrex.parseResponse, apiBittrex.tickers.ETH);
-      httpGetAsync(apiBittrex.url + apiBittrex.tickers.LTC, apiBittrex.parseResponse, apiBittrex.tickers.LTC);
-      httpGetAsync(apiBittrex.url + apiBittrex.tickers.DASH, apiBittrex.parseResponse, apiBittrex.tickers.DASH);
-      httpGetAsync(apiBittrex.url + apiBittrex.tickers.BTC, apiBittrex.parseResponse, apiBittrex.tickers.BTC);
-      break;      
+        httpGetAsync(apiBittrex.url + apiBittrex.tickers.ETH, apiBittrex.parseResponse, apiBittrex.tickers.ETH);
+        httpGetAsync(apiBittrex.url + apiBittrex.tickers.LTC, apiBittrex.parseResponse, apiBittrex.tickers.LTC);
+        httpGetAsync(apiBittrex.url + apiBittrex.tickers.DASH, apiBittrex.parseResponse, apiBittrex.tickers.DASH);
+        httpGetAsync(apiBittrex.url + apiBittrex.tickers.BTC, apiBittrex.parseResponse, apiBittrex.tickers.BTC);
+        break;      
     default:
-      console.log('Error: getCurrentPrice(): invalid source');
-  }
+        console.log('Error: getCurrentPrice(): invalid source');
+    }
 };
 
 const getAllPriceData = function() {
-  getCurrentPrice('Kraken');
-  getCurrentPrice('Poloniex');
-  getCurrentPrice('Bittrex');
+    getCurrentPrice('Kraken');
+    getCurrentPrice('Poloniex');
+    getCurrentPrice('Bittrex');
 
-  getPriceHistory('BTC');
-  getPriceHistory('ETH');
-  getPriceHistory('LTC');
-  getPriceHistory('DASH');  
+    getPriceHistory('BTC');
+    getPriceHistory('ETH');
+    getPriceHistory('LTC');
+    getPriceHistory('DASH');  
 };
 
 const getPriceHistory = function (ticker) {
-  httpGetAsync(apiCoinCap.url + ticker, apiCoinCap.parseResponse, ticker);
+    httpGetAsync(apiCoinCap.url + ticker, apiCoinCap.parseResponse, ticker);
 };
 
 const timer = function () {
-  getAllPriceData();
+    getAllPriceData();
 };
 
 // This stands up the webpack-dev-server
 const startDevServer = function() {
-  console.log('Starting server (development environment) ...');
+    console.log('Starting server (development environment) ...');
 
-  // Hot module reloading
-  // webpackConfig.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/dev-server');
+    // Hot module reloading
+    // webpackConfig.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/dev-server');
 
-  const compiler = webpack(webpackConfig);
-  const options = {
+    const compiler = webpack(webpackConfig);
+    const options = {
     // contentBase: './dist',
-    hot: true,
-    host: 'localhost',
-  };
+        hot: true,
+        host: 'localhost',
+    };
 
-  const server = new WebpackDevServer(compiler, {
-    contentBase: './dist',
-    hot: true,
-    proxy: {
-      '/quote': {
-        target: 'http://localhost:8081',
-        secure: false,
-      },
-      '/price_history': {
-        target: 'http://localhost:8081',
-        secure: false,
-      },
-    },
-  });
+    const server = new WebpackDevServer(compiler, {
+        contentBase: './dist',
+        hot: true,
+        proxy: {
+            '/quote': {
+                target: 'http://localhost:8081',
+                secure: false,
+            },
+            '/price_history': {
+                target: 'http://localhost:8081',
+                secure: false,
+            },
+        },
+    });
 
-  WebpackDevServer.addDevServerEntrypoints(webpackConfig, options);
-  getAllPriceData();
-  let intervalId = setInterval(timer, refreshCurrentPrices);
-  server.listen(8080, 'localhost', () => {
-    console.log('Development server listening on port 8080');
-  });
+    WebpackDevServer.addDevServerEntrypoints(webpackConfig, options);
+    getAllPriceData();
+    setInterval(timer, refreshCurrentPrices);
+    server.listen(8080, 'localhost', () => {
+        console.log('Development server listening on port 8080');
+    });
 };
 
 // This stands up the express.js API
 const startDevAPI = function() {
-  console.log('Starting client API ...');
-  const app = express();
-  routes.defineApi(app);
-  app.listen(8081, () => {
-    console.log('Client API is up!');
-  });
+    console.log('Starting client API ...');
+    const app = express();
+    routes.defineApi(app);
+    app.listen(8081, () => {
+        console.log('Client API is up!');
+    });
 };
 
 // Note - in real world the development code should not be copied
 // over to the production server.
 const startProductionServer = function() { 
-  console.log('Starting server (production environment) ...');
+    console.log('Starting server (production environment) ...');
 
-  // start client API
-  const app = express();
-  app.use('/', express.static('bundle'));
-  routes.defineApi(app);
+    // start client API
+    const app = express();
+    app.use('/', express.static('bundle'));
+    routes.defineApi(app);
 
-  // populate the database
-  getAllPriceData();
-  let intervalId = setInterval(timer, refreshCurrentPrices);  
-  app.listen(8080, () => {
-    console.log('Production server is up!');
-  });
+    // populate the database
+    getAllPriceData();
+    setInterval(timer, refreshCurrentPrices);  
+    app.listen(8080, () => {
+        console.log('Production server is up!');
+    });
 };
 
 // Main process
 if (process.env.NODE_ENV === 'dev-server') {
-  startDevServer(); 
+    startDevServer(); 
 } 
 else if (process.env.NODE_ENV === 'dev-api') {
-  startDevAPI();
+    startDevAPI();
 } 
 else { 
-  startProductionServer();  // TODO - not tested
+    startProductionServer();  // TODO - not tested
 }
 

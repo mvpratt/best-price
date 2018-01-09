@@ -146,31 +146,35 @@ export class QuoteGroup extends React.Component {
             );
         }
         return (
-            <div>
-                <label>Amount to Exchange (BTC)</label>
-                <input
-                    onChange={this.handleChange}
-                    value={this.state.text}
-                    label="i_amount"
-                    type="number" 
-                />      
+            <div className="row">
+              <div className="seven columns">
                 <h6>Latest Quotes:</h6>
                 <table>
-                    <thead>
-                        <tr>
-                            <th><strong>Exchange</strong></th>
-                            <th>Price (BTC)</th>              
-                            <th>QTY ({this.props.coin})</th>
-                            <th>Savings (BTC)</th>
-                            <th>Savings (USD)</th>            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderQuoteRow(0)}
-                        {this.renderQuoteRow(1)}
-                        {this.renderQuoteRow(2)}          
-                    </tbody>
+                  <thead>
+                    <tr>
+                      <th><strong>Exchange</strong></th>
+                      <th>Price (BTC)</th>              
+                      <th>QTY ({this.props.coin})</th>
+                      <th>Savings (BTC)</th>
+                      <th>Savings (USD)</th>            
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.renderQuoteRow(0)}
+                    {this.renderQuoteRow(1)}
+                    {this.renderQuoteRow(2)}          
+                  </tbody>
                 </table>
+              </div>
+              <div className="three columns">
+                <label>Amount to Exchange (BTC)</label>
+                <input
+                  onChange={this.handleChange}
+                  value={this.state.text}
+                  label="i_amount"
+                  type="number" 
+                /> 
+              </div>                      
             </div>
         );
     }

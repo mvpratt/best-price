@@ -84,6 +84,8 @@ export class PriceHistory extends React.Component {
     renderAreaChart() {
         if(this.state.show) {    
             return (
+              <div className="row">
+              <div className="twelve columns">
                 <div className="bg-area-chart">
                     <div className="border-area-chart">
                         <AreaChart
@@ -115,6 +117,8 @@ export class PriceHistory extends React.Component {
                                 fill={this.props.color} 
                             />        
                         </AreaChart>
+                    </div>
+                </div>
                     </div>
                 </div>
             );

@@ -49,10 +49,10 @@ https://www.google.com/search?q=html+color+picker&oq=html+color&aqs=chrome.0.0j6
 ## TODO:
 Top:
   Refactor react code to streamline
-  React props
+  React props - how to proptype an object, array
   Improve front-end layout & try new colors
   Architecture diagram
-
+  rm bundle.js from repo
 
 Testing:
   http errors and timeouts 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export class QuoteRow extends React.Component {
     render(){
@@ -27,3 +28,12 @@ export class QuoteRow extends React.Component {
         }
     }
 }
+
+QuoteRow.propTypes = {
+    source: PropTypes.string,
+    quote: PropTypes.number,    
+    amt: PropTypes.number,
+    estimSavings: PropTypes.number,
+    savingsUSD: PropTypes.string,
+};
+

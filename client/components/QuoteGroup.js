@@ -125,14 +125,21 @@ export class QuoteGroup extends React.Component {
     }
 
     renderQuoteRow(i) {
+        const source = this.state.quotes[i].source;
+        const quote = this.state.quotes[i].quote;
+        const isBestPrice = this.state.quotes[i].isBestPrice;
+        const amtBTC = this.state.amtBTC;
+        const priceDelta = this.state.priceDelta;
+        const btcQuote = this.state.btcQuotes[i].quote;
+
         return (
             <QuoteRow 
-                source={this.state.quotes[i].source} 
-                quote={this.state.quotes[i].quote} 
-                highlight={this.state.quotes[i].isBestPrice} 
-                amt={this.btcFormatter(this.state.amtBTC / this.state.quotes[i].quote)}
-                estimSavings={this.btcFormatter( this.state.amtBTC / this.state.quotes[i].quote * this.state.priceDelta ) }
-                savingsUSD={'$' + this.usdFormatter( this.state.amtBTC / this.state.quotes[i].quote * this.state.priceDelta * this.state.btcQuotes[i].quote ) }
+                source={source} 
+                quote={quote} 
+                highlight={isBestPrice} 
+                amt={this.btcFormatter(amtBTC / quote)}
+                estimSavings={this.btcFormatter( (amtBTC / quote) * priceDelta ) }
+                savingsUSD={'$' + this.usdFormatter( (amtBTC / quote) * priceDelta * btcQuote) }
             />
         );
     }

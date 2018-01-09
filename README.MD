@@ -47,11 +47,11 @@ An initialization script sets up the database
 `client` - Client source code
 `dist` - Client code bundled for production
 `server`
-`  |-api` - Exchange APIs  
-`  |-db/db.js` - PSQL database api  
-`  |-db/dbInit.js` - Script to initialize the `prices` table   
-`  |-db/dbConfig.js` - User name and pwd for postgresql  
-`  \-routes` - REST API for the front-end  
+`|-api` - Exchange APIs  
+`|-db/db.js` - PSQL database api  
+`|-db/dbInit.js` - Script to initialize the `prices` table   
+`|-db/dbConfig.js` - User name and pwd for postgresql  
+`\-routes` - REST API for the front-end  
 `server.js` - NodeJS server code  
 `webpack.config.js` - Webpack configuration  
 

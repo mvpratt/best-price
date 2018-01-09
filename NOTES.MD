@@ -1,44 +1,5 @@
 
-## TODO:
-
-Major tasks:
-  handle http errors and timeouts -- in progress
-  handle empty json object -- in progress
-  handle front end rest api errors (when server is down)
-  Eth contract tie-in
-  Second pass bitcoin tasks
-  Test production server mode / deploy to Heroku
-  refactor react code to streamline
-
-  How to know if db entries are stale -- did requests work> -- disp error
-  react props validation -- check all -- why lint error?
-  ESlint - cleanup
-
-Documentation:
-  Architecture diagram
-  REST api documentation
-  Function comments
-
-Defer:
-  Handle all errors
-  Check for bad input from client -- rest api
-  Logging with Morgan js module
-  Unit testing
-  make a global app scope
-  Webpack hot module reload
-  Fix favicon error
-  scrub css files
-  Use await?  ES6 features
-  use import instead of require - ES6 - not supported by node?
-  move data massaging from front end to backend
-  make graph container responsive
-  script to start postgresql database and create the table
-  routes.js
-  // todo - move to db module
-  // todo - check for valid coin and valid source
-  // todo - change name of getpricehistory
-
-## References / Acknowledgements: (- see package.json for dependencies)
+## References / Acknowledgements: 
 
 https://multimedia.journalism.berkeley.edu/tutorials/css-intro/
 
@@ -84,3 +45,43 @@ https://www.google.com/search?q=html+color+picker&oq=html+color&aqs=chrome.0.0j6
 * Use promises vs callbacks 
 * Use REST APIs vs socket
 
+
+## TODO:
+
+Major tasks:
+  refactor react code to streamline
+  ESlint - cleanup
+  Turn off bittrex logging
+
+Documentation:
+  Architecture diagram
+  REST api documentation
+  Function comments
+
+Error handling:
+  Bittrex parse error -- in progress
+  http errors and timeouts -- in progress
+  empty json object -- in progress
+  front end rest api errors (when server is down) -- in progress
+
+Defer:
+  Handle all errors
+  Check for bad input from client -- rest api
+  Logging with Morgan js module
+  Unit testing
+  make a global app scope
+  Webpack hot module reload
+  Fix favicon error
+  scrub css files
+  Use await?  ES6 features
+  use import instead of require - ES6 - not supported by node?
+  move data massaging from front end to backend
+  make graph container responsive
+  script to start postgresql database and create the table
+  routes.js
+  // todo - move to db module
+  // todo - check for valid coin and valid source
+  // todo - change name of getpricehistory
+  Test production server mode / deploy to Heroku
+  Test - when db queries fail
+  react props validation -- check all -- why lint error?

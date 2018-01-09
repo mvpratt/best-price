@@ -38,7 +38,7 @@ module.exports = {
           break;
         case module.exports.tickers.BTC:
           db.updatePrice('BTC', 'Bittrex', datetime, obj.result.Last);
-          console.log(obj);
+          //console.log(obj);
           break;        
         default:
           console.log('Error: Bittrex parseResponse(): Unsupported coin ticker');

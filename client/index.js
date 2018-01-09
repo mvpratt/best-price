@@ -17,8 +17,8 @@ class App extends React.Component {
             priceHistoryBTCUSD: [],
             isLoading: true,
             showEthereum: true,
-            showLitecoin: false,
-            showDash: false,
+            showLitecoin: true,
+            showDash: true,
         };
     }
 
@@ -47,20 +47,62 @@ class App extends React.Component {
     renderCoinGroup(coinName, coinTicker, color, show) {
         if (show)
             return (
-                <div>
-                    <h3>{coinName}</h3>
-                    <QuoteGroup 
-                        coin={coinTicker} 
-                    />
-                    <PriceHistory 
-                        coin={coinTicker} 
-                        color={color} 
-                        priceHistoryBTCUSD={this.state.priceHistoryBTCUSD} 
-                    />
-                    <br></br>
+              <div>
+                <h3>{coinName}</h3>
+                <QuoteGroup coin={coinTicker} />
+                <PriceHistory 
+                  coin={coinTicker} 
+                  color={color} 
+                  priceHistoryBTCUSD={this.state.priceHistoryBTCUSD} 
+                />
+                <br></br>
                 </div>
             );
         else return (<p></p>);
+    }
+
+    renderCoinSelect() {
+        return(
+            <div className="container">
+            <div className="row">            
+            <form>
+                <div className="two columns">
+                    <label >
+                        <input 
+                            type="checkbox" 
+                            name="eth" 
+                            onChange={this.handleCheckbox}
+                            checked={this.state.showEthereum}>
+                        </input>
+                        <span className="label-body">Ethereum</span>
+                       </label> 
+                </div>
+                <div className="two columns">
+                    <label >
+                        <input 
+                            type="checkbox" 
+                            name="ltc" 
+                            onChange={this.handleCheckbox}
+                            checked={this.state.showLitecoin}>
+                        </input>
+                        <span className="label-body">Litecoin</span>
+                    </label> 
+                </div>         
+                <div className="two columns">
+                    <label >
+                        <input 
+                            type="checkbox" 
+                            name="dash" 
+                            onChange={this.handleCheckbox}
+                            checked={this.state.showDash}>
+                        </input>
+                        <span className="label-body">Dash</span>
+                    </label> 
+                </div>
+            </form> 
+            </div>
+            </div>            
+        );
     }
 
     render() {
@@ -80,52 +122,15 @@ class App extends React.Component {
                         </div>
                     </div>
                 </header> 
+                {this.renderCoinSelect()}
                 <div className="container">
                     <div className="row">
-
-                        <form>
-                            <div className="two columns">
-                                <label >
-                                    <input 
-                                        type="checkbox" 
-                                        name="eth" 
-                                        onChange={this.handleCheckbox}
-                                        checked={this.state.showEthereum}>
-                                    </input>
-                                    <span className="label-body">Ethereum</span>
-                                </label> 
-                            </div>
-                            <div className="two columns">
-                                <label >
-                                    <input 
-                                        type="checkbox" 
-                                        name="ltc" 
-                                        onChange={this.handleCheckbox}
-                                        checked={this.state.showLitecoin}>
-                                    </input>
-                                    <span className="label-body">Litecoin</span>
-                                </label> 
-                            </div>         
-                            <div className="two columns">
-                                <label >
-                                    <input 
-                                        type="checkbox" 
-                                        name="dash" 
-                                        onChange={this.handleCheckbox}
-                                        checked={this.state.showDash}>
-                                    </input>
-                                    <span className="label-body">Dash</span>
-                                </label> 
-                            </div>
-                        </form> 
-                        <br></br>
-
+                      <br></br>
                         <div className="ten columns">          
                             {this.renderCoinGroup('Ethereum', 'ETH', '#8884d8', this.state.showEthereum)}
                             {this.renderCoinGroup('Litecoin', 'LTC', '#82ca9d', this.state.showLitecoin)}          
                             {this.renderCoinGroup('Dash', 'DASH', '#f4b942', this.state.showDash)}
                         </div>
-         
                     </div>
                 </div>
             </div>
@@ -133,11 +138,11 @@ class App extends React.Component {
     }
 }
 
-if (module.hot) {
-    module.hot.accept('./components/QuoteGroup.js', () => {
-        console.log('Accepting the updated QuoteGroup module!');
-        QuoteGroup.render();
-    });
-}
+//if (module.hot) {
+//    module.hot.accept('./components/QuoteGroup.js', () => {
+//        console.log('Accepting the updated QuoteGroup module!');
+//        QuoteGroup.render();
+//    });
+//}
 
 render(<App/>, window.document.getElementById('app'));

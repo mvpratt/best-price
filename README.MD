@@ -20,7 +20,7 @@ makes a REST API available to the Client webapp
 
 *Front-end:*  
 React.js Client displays the latest prices and how much can be saved by 
-using the best exchange rate.  User may also view 1 day, 7 day, 30 day, and 
+using the best exchange rate.  User may also view 7 day, 30 day, and 
 90 day price trends (default is 30 day)
 
 *Initialization:*  
@@ -44,9 +44,9 @@ An initialization script sets up the database
  * `npm run dev`
 
 ## Files
-`client` - Client source code
-`dist` - Client code bundled for production
-`server`
+`client` - Client source code  
+`dist` - Client code bundled for production  
+`server`  
 `|-api` - Exchange APIs  
 `|-db/db.js` - PSQL database api  
 `|-db/dbInit.js` - Script to initialize the `prices` table   

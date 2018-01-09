@@ -47,23 +47,21 @@ https://www.google.com/search?q=html+color+picker&oq=html+color&aqs=chrome.0.0j6
 
 
 ## TODO:
-
-Major tasks:
-  refactor react code to streamline
-  ESlint - cleanup
-
-Documentation:
+Top:
+  Refactor react code to streamline
+  React props
+  Improve front-end layout & try new colors
   Architecture diagram
-  REST api documentation
-  Function comments
 
-Error handling:
-  Bittrex parse error -- in progress
-  http errors and timeouts -- in progress
-  empty json object -- in progress
-  front end rest api errors (when server is down) -- in progress
+
+Testing:
+  http errors and timeouts 
+  empty json object 
+  Front end rest api errors (when server is down)
 
 Defer:
+  Comment functions
+  REST api documentation
   Handle all errors
   Check for bad input from client -- rest api
   Logging with Morgan js module

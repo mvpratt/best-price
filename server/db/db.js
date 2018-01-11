@@ -10,6 +10,7 @@ const pool = new Pool({ connectionString: connectionString });
 //const pool = new Pool(dbConfig.config);
 // test:wq
 // test2
+// test3
 
 const supportedCoins = ['ETH', 'LTC', 'DASH', 'BTC'];
 const quoteSources = ['Poloniex', 'Kraken', 'Bittrex'];

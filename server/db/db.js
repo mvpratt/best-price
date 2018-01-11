@@ -7,7 +7,7 @@ const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString: connectionString });
 
 // local db
-const pool = new Pool(dbConfig.config);
+//const pool = new Pool(dbConfig.config);
 
 const supportedCoins = ['ETH', 'LTC', 'DASH', 'BTC'];
 const quoteSources = ['Poloniex', 'Kraken', 'Bittrex'];

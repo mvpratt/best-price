@@ -11,7 +11,7 @@
     "dev-server": "NODE_ENV=dev-server node server.js",
     "dev-api": "NODE_ENV=dev-api node server.js",
     "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run dev-api\"",
-    "prod": "webpack -p && node server.js",
+    "prod": "npm run dbinit; webpack -p && node server.js",
     "clean": "rm -rf dist/app",
     "//": "[build script] webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --hot"
   },

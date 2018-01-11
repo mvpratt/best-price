@@ -53,6 +53,7 @@ Top:
   Improve front-end layout & try new colors
   Architecture diagram
   rm bundle.js from repo
+  Test production server mode / deploy to Heroku  
 
 Testing:
   http errors and timeouts 
@@ -79,6 +80,5 @@ Defer:
   // todo - move to db module
   // todo - check for valid coin and valid source
   // todo - change name of getpricehistory
-  Test production server mode / deploy to Heroku
   Test - when db queries fail
   react props validation -- check all -- why lint error?

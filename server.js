@@ -1,49 +1,10 @@
 
 /*
-## Author
-Michael V Pratt  [ github.com/mvpratt ] [ Twitter: @mikevpratt ]
-
-TODO:
-
-Major tasks:
-  Eth contract tie-in
-  Make a few slides to show the overall design - block diagram
-  move data massaging from front end to backend
-  Webpack hot module reload
-  Deploy on Heroku
-  clear up server.js main section
-
-Code quality:
-  script to start postgresql database and create the table
-  fix so dont have to pre-populate prices (shows incomplete sql knowledge)
-  make a global app scope
-  Handle all errors
-  react props validation -- check all -- why lint error?
-  Check for bad input -- rest api
-
-Frontend:
-  Add selector for history range (1day - 90day)  per coin
-
-Misc:
-  How to know if db entries are stale -- did requests work> -- disp error
-  unit tests --?
-  Logging with Morgan js module
-
-Defer:
-  Fix favicon error
-  scrub css files
-  protect postgres user name -- env variable
-  Use await?  ES6 features
-  Change db name from sample_db
-  use import instead of require - ES6 - not supported by node?
-  Move latest price data out of database and into front-end (try to use socket for latest)
-*/
-
-
-// myApp = function(){
+ * Author
+ * Michael V Pratt  [ github.com/mvpratt ] [ Twitter: @mikevpratt ]
+ */
 
 // ==== DEPENDENCIES ===//
-
 // External
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const webpack = require('webpack');
@@ -52,152 +13,158 @@ const express = require('express');
 
 // Local
 const webpackConfig = require('./webpack.config.js');
-const routes = require('./routes/routes');
-const apiPoloniex = require('./api/apiPoloniex');
-const apiKraken = require('./api/apiKraken');
-const apiBittrex = require('./api/apiBittrex');
-const apiCoinCap = require('./api/apiCoinCap');
+const routes = require('./server/routes/routes');
+const apiPoloniex = require('./server/api/apiPoloniex');
+const apiKraken = require('./server/api/apiKraken');
+const apiBittrex = require('./server/api/apiBittrex');
+const apiCoinCap = require('./server/api/apiCoinCap');
+// ==== END DEPENDENCIES ===//
 
 const refreshCurrentPrices = 3000;
 
-// ==== END DEPENDENCIES ===//
+const handleHttpError = function () {
+    console.log('Error: HTTP request to external API failed');
+};
+
+const handleHttpTimeout = function () {
+    console.log('Error: HTTP request to external API timed out');
+};
 
 // sends request to url, returns response
 const httpGetAsync = function (theUrl, parseResponse, ticker) {
-  const xmlHttp = new XMLHttpRequest();
-  xmlHttp.onreadystatechange = function parse() {
-    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-      parseResponse(xmlHttp.responseText, ticker);
-    }
-  };
-  xmlHttp.open('GET', theUrl, true); // true for asynchronous
-  xmlHttp.send(null);
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.addEventListener('error', handleHttpError);
+    xmlHttp.timeout = 10000; // 10 seconds
+    xmlHttp.ontimeout = handleHttpTimeout;
+
+    xmlHttp.onreadystatechange = function parse() {
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+            if (xmlHttp.responseText === null) {
+                console.log('Error: xmlhttprequest.responseText = null');
+            }
+            else {
+                parseResponse(xmlHttp.responseText, ticker);
+            }  
+        }
+    };
+    xmlHttp.open('GET', theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
 };
 
 const getCurrentPrice = function (source) {
-  switch (source) {
-    case 'kraken':
-      httpGetAsync(apiKraken.url + apiKraken.tickers.ETH, apiKraken.parseResponse, apiKraken.tickers.ETH);
-      httpGetAsync(apiKraken.url + apiKraken.tickers.LTC, apiKraken.parseResponse, apiKraken.tickers.LTC);
-      httpGetAsync(apiKraken.url + apiKraken.tickers.DASH, apiKraken.parseResponse, apiKraken.tickers.DASH);
-      httpGetAsync(apiKraken.url + apiKraken.tickers.BTC, apiKraken.parseResponse, apiKraken.tickers.BTC);
-      break;
-    case 'poloniex':
-      httpGetAsync(apiPoloniex.url, apiPoloniex.parseResponse, 'all');
-      break;
+    switch (source) {
+    case 'Kraken':
+        httpGetAsync(apiKraken.url + apiKraken.tickers.ETH, apiKraken.parseResponse, apiKraken.tickers.ETH);
+        httpGetAsync(apiKraken.url + apiKraken.tickers.LTC, apiKraken.parseResponse, apiKraken.tickers.LTC);
+        httpGetAsync(apiKraken.url + apiKraken.tickers.DASH, apiKraken.parseResponse, apiKraken.tickers.DASH);
+        httpGetAsync(apiKraken.url + apiKraken.tickers.BTC, apiKraken.parseResponse, apiKraken.tickers.BTC);
+        break;
+    case 'Poloniex':
+        httpGetAsync(apiPoloniex.url, apiPoloniex.parseResponse, 'all');
+        break;
     case 'Bittrex':
-      httpGetAsync(apiBittrex.url + apiBittrex.tickers.ETH, apiBittrex.parseResponse, apiBittrex.tickers.ETH);
-      httpGetAsync(apiBittrex.url + apiBittrex.tickers.LTC, apiBittrex.parseResponse, apiBittrex.tickers.LTC);
-      httpGetAsync(apiBittrex.url + apiBittrex.tickers.DASH, apiBittrex.parseResponse, apiBittrex.tickers.DASH);
-      httpGetAsync(apiBittrex.url + apiBittrex.tickers.BTC, apiBittrex.parseResponse, apiBittrex.tickers.BTC);
-      break;      
+        httpGetAsync(apiBittrex.url + apiBittrex.tickers.ETH, apiBittrex.parseResponse, apiBittrex.tickers.ETH);
+        httpGetAsync(apiBittrex.url + apiBittrex.tickers.LTC, apiBittrex.parseResponse, apiBittrex.tickers.LTC);
+        httpGetAsync(apiBittrex.url + apiBittrex.tickers.DASH, apiBittrex.parseResponse, apiBittrex.tickers.DASH);
+        httpGetAsync(apiBittrex.url + apiBittrex.tickers.BTC, apiBittrex.parseResponse, apiBittrex.tickers.BTC);
+        break;      
     default:
-      console.log('Error');
-  }
+        console.log('Error: getCurrentPrice(): invalid source');
+    }
 };
 
-const getAllCurrentPrices = function() {
-  getCurrentPrice('kraken');
-  getCurrentPrice('poloniex');
-  getCurrentPrice('Bittrex');
+const getAllPriceData = function() {
+    getCurrentPrice('Kraken');
+    getCurrentPrice('Poloniex');
+    getCurrentPrice('Bittrex');
+
+    getPriceHistory('BTC');
+    getPriceHistory('ETH');
+    getPriceHistory('LTC');
+    getPriceHistory('DASH');  
 };
 
 const getPriceHistory = function (ticker) {
-  httpGetAsync(apiCoinCap.url + ticker, apiCoinCap.parseResponse, ticker);
+    httpGetAsync(apiCoinCap.url + ticker, apiCoinCap.parseResponse, ticker);
 };
 
 const timer = function () {
-  getAllCurrentPrices();
+    getAllPriceData();
 };
 
+// This stands up the webpack-dev-server
 const startDevServer = function() {
-  console.log('Starting dev-server ...');
-  // This stands up the webpack-dev-server
-  // with Hot Module Reloading enabled.
-  // The following is needed in order for
-  // Hot Module Reloading to work.
+    console.log('Starting server (development environment) ...');
 
-  // webpackConfig.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/dev-server');
+    // Hot module reloading
+    // webpackConfig.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/dev-server');
 
-  const compiler = webpack(webpackConfig);
-  const options = {
+    const compiler = webpack(webpackConfig);
+    const options = {
     // contentBase: './dist',
-    hot: true,
-    host: 'localhost',
-  };
+        hot: true,
+        host: 'localhost',
+    };
 
-  WebpackDevServer.addDevServerEntrypoints(webpackConfig, options);
+    const server = new WebpackDevServer(compiler, {
+        contentBase: './dist',
+        hot: true,
+        proxy: {
+            '/quote': {
+                target: 'http://localhost:8081',
+                secure: false,
+            },
+            '/price_history': {
+                target: 'http://localhost:8081',
+                secure: false,
+            },
+        },
+    });
 
-  const server = new WebpackDevServer(compiler, {
-    contentBase: './dist',
-    hot: true,
-    proxy: {
-      '/quote': {
-        target: 'http://localhost:8081',
-        secure: false,
-      },
-      '/price_history': {
-        target: 'http://localhost:8081',
-        secure: false,
-      },
-    },
-  });
-
-  server.listen(8080, 'localhost', () => {
-    console.log('dev server listening on port 8080');
-  });
-
-  getAllCurrentPrices();
-  getPriceHistory('BTC');
-  getPriceHistory('ETH');
-  getPriceHistory('LTC');
-  getPriceHistory('DASH');
-
-  let intervalId = setInterval(timer, refreshCurrentPrices);
+    WebpackDevServer.addDevServerEntrypoints(webpackConfig, options);
+    getAllPriceData();
+    setInterval(timer, refreshCurrentPrices);
+    server.listen(8080, 'localhost', () => {
+        console.log('Development server listening on port 8080');
+    });
 };
 
+// This stands up the express.js API
 const startDevAPI = function() {
-  console.log('Starting dev-api ...');
-  
-  // This stands up the express.js API
-  const app = express();
-  routes.defineApi(app);
-  app.listen(8081, () => {
-    console.log('API is up!');
-  });
-
-
+    console.log('Starting client API ...');
+    const app = express();
+    routes.defineApi(app);
+    app.listen(8081, () => {
+        console.log('Client API is up!');
+    });
 };
 
-const startProductionServer = function() {
-  console.log('Starting PROD ...');
-  // = PROD =
-  // This is here for simplicity's sake,
-  // in a real-world application none of
-  // the development code should be copied
-  // over to the production server.
-  const app = express();
+// Note - in real world the development code should not be copied
+// over to the production server.
+const startProductionServer = function() { 
+    console.log('Starting server (production environment) ...');
 
-  // We serve the bundle folder, which
-  // should contain an `index.html` and
-  // a `bundle.js` file only.
-  app.use('/', express.static('bundle'));
-  routes.defineApi(app);
-  app.listen(8080, () => {
-    console.log('Both PROD front-end and API are up!');
-  });
+    // start client API
+    const app = express();
+    app.use('/', express.static('bundle'));
+    routes.defineApi(app);
+
+    // populate the database
+    getAllPriceData();
+    setInterval(timer, refreshCurrentPrices);  
+    app.listen(8080, () => {
+        console.log('Production server is up!');
+    });
 };
 
-// Main
+// Main process
 if (process.env.NODE_ENV === 'dev-server') {
-  startDevServer(); 
+    startDevServer(); 
 } 
 else if (process.env.NODE_ENV === 'dev-api') {
-  startDevAPI();
+    startDevAPI();
 } 
-else { // todo - not tested
-  startProductionServer();
+else { 
+    startProductionServer();  // TODO - not tested
 }
-// End main
-// }
 

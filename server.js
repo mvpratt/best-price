@@ -152,7 +152,7 @@ const startProductionServer = function() {
     // populate the database
     getAllPriceData();
     setInterval(timer, refreshCurrentPrices);  
-    app.listen(8080, () => {
+    app.listen(process.env.PORT || 8080, () => {
         console.log('Production server is up!');
     });
 };

@@ -48,12 +48,11 @@ https://www.google.com/search?q=html+color+picker&oq=html+color&aqs=chrome.0.0j6
 
 ## TODO:
 Top:
-  Refactor react code to streamline
-  React props - how to proptype an object, array
   Improve front-end layout & try new colors
   Architecture diagram
   rm bundle.js from repo
-  Test production server mode / deploy to Heroku  
+  remove dbconfig?
+  webpack dev / production modes
 
 Testing:
   http errors and timeouts 
@@ -61,6 +60,8 @@ Testing:
   Front end rest api errors (when server is down)
 
 Defer:
+  Refactor react code to streamline
+  React props - how to proptype an object, array
   Comment functions
   REST api documentation
   Handle all errors

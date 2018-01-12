@@ -74,7 +74,7 @@ const getCurrentPrice = function (source) {
 };
 
 const getAllPriceData = function() {
-    //getCurrentPrice('Kraken');
+    getCurrentPrice('Kraken');
     getCurrentPrice('Poloniex');
     getCurrentPrice('Bittrex');
 

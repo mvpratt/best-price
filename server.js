@@ -146,11 +146,12 @@ const startProductionServer = function() {
 
     // start client API
     const app = express();
-    app.use('/', express.static('bundle'));
+    //app.use('/', express.static('bundle'));
+    app.use(express.static('dist'));
     routes.defineApi(app);
 
     // populate the database
-    getAllPriceData();
+    getAllPriceData();  // todo - race condition
     setInterval(timer, refreshCurrentPrices);  
     app.listen(process.env.PORT || 8080, () => {
         console.log('Production server is up!');
@@ -165,6 +166,6 @@ else if (process.env.NODE_ENV === 'dev-api') {
     startDevAPI();
 } 
 else { 
-    startProductionServer();  // TODO - not tested
+    startProductionServer();  
 }
 

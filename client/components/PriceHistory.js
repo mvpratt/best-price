@@ -64,7 +64,8 @@ export class PriceHistory extends React.Component {
     }
 
     componentDidMount() {
-        return fetch(`http://localhost:8080/price_history/${this.props.coin}`)
+        //return fetch(`http://localhost:8080/price_history/${this.props.coin}`)
+        return fetch(`/price_history/${this.props.coin}`)        
             .then(response => response.json())
             .then((responseJson) => {
                 return this.massageData(responseJson, this.props.priceHistoryBTCUSD);

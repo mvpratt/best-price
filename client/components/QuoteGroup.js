@@ -47,7 +47,8 @@ export class QuoteGroup extends React.Component {
     }
 
     getQuotes(coin) {
-        return fetch('http://localhost:8080/quote/' + coin)
+        //return fetch('http://localhost:8080/quote/' + coin)
+        return fetch('/quote/' + coin)
             .then(response => response.json())
             .then((responseJson) => {
                 return responseJson;

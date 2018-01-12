@@ -31,7 +31,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        return fetch('http://localhost:8080/price_history/BTC')
+        //return fetch('http://localhost:8080/price_history/BTC')
+        return fetch('/price_history/BTC')
             .then(response => response.json())
             .then((responseJson) => {
                 this.setState({ 

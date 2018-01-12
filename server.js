@@ -146,7 +146,6 @@ const startProductionServer = function() {
 
     // start client API
     const app = express();
-    //app.use('/', express.static('bundle'));
     app.use(express.static('dist'));
     routes.defineApi(app);
 

@@ -53,6 +53,7 @@ Top:
   rm bundle.js from repo
   remove dbconfig?
   webpack dev / production modes
+  when exchange is down adjust savings calcs
 
 Testing:
   http errors and timeouts 
